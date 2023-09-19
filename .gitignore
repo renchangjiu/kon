@@ -1,0 +1,19 @@
+### IntelliJ IDEA ###
+.idea
+.rider
+*.iws
+*.iml
+*.ipr
+
+.vs
+*.user
+
+### C# ###
+[Dd]ebug
+[Rr]elease
+obj/
+[Bb]in
+!packages/build/
+Bak/
+packages/
+[Rr]elease/
