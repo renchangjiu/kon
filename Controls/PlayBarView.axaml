@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:kon.ViewModels"
+             x:DataType="vm:PlayBarViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="70"
+             x:Class="kon.Controls.PlayBarView">
+    <Design.DataContext>
+        <vm:PlayBarViewModel />
+    </Design.DataContext>
+    <Border
+        BorderBrush="{StaticResource ColorGray}"
+        BorderThickness="0 1 0 0">
+        <DockPanel>
+            <Grid DockPanel.Dock="Left"
+                  RowDefinitions="Auto,Auto"
+                  ColumnDefinitions="Auto,Auto">
+                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                        Margin="12"
+                        CornerRadius="10" ClipToBounds="True">
+                    <Image
+                        Width="48" Height="48"
+                        Source="{Binding Music.Cover}" />
+                </Border>
+                <TextBlock Text="{Binding Music.Title}"
+                           Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Music.Performers[0]}"
+                           Grid.Row="1" Grid.Column="1" />
+            </Grid>
+
+            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Spacing="10" Orientation="Horizontal">
+                <Button Content="b1"></Button>
+                <Button Content="b2"></Button>
+            </StackPanel>
+            <StackPanel Margin="20 5 20 0" VerticalAlignment="Center">
+                <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="111" />
+                    <Button Content="222"></Button>
+                </DockPanel>
+                <Slider></Slider>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+</UserControl>

@@ -3,18 +3,51 @@
         xmlns:vm="using:kon.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:cs="using:kon.Controls"
+        mc:Ignorable="d"
+        d:DesignWidth="800" d:DesignHeight="450"
+        Width="1024" Height="670"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        BorderBrush="Black"
+        BorderThickness="1"
         x:Class="kon.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/icon.png"
         Title="kon">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+    <Border BoxShadow="5 5 10 0 #E0E0E0"
+            Margin="0">
+        <Grid RowDefinitions="60,*,70">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" MinWidth="200" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" MinWidth="800" />
+            </Grid.ColumnDefinitions>
+
+            <cs:WindowsTitleBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
+
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <TextBlock Text="2.1" />
+            </StackPanel>
+
+            <GridSplitter Grid.Row="1" Grid.Column="1"
+                          ResizeDirection="Columns"
+                          MinWidth="1"
+                          Background="{StaticResource ColorGray}" />
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <TextBlock Text="2.3" />
+            </StackPanel>
+            <cs:PlayBarView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" DataContext="{Binding PlayBarViewModel}"/>
+
+
+        </Grid>
+    </Border>
 
 </Window>
