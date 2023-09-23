@@ -24,6 +24,10 @@ public class Music {
     public string Title { get; set; }
     public string[] Performers { get; set; }
     public string Album { get; set; }
+    /// <summary>
+    /// 时长, 秒
+    /// </summary>
     public int Duration { get; set; }
+    public string? DurationFormatted { get; set; }
 
 }

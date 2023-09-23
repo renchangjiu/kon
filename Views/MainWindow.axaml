@@ -24,7 +24,7 @@
 
     <Border BoxShadow="5 5 10 0 #E0E0E0"
             Margin="0">
-        <Grid RowDefinitions="60,*,70">
+        <Grid RowDefinitions="60,*,90">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MinWidth="200" />
                 <ColumnDefinition Width="Auto" />
@@ -44,7 +44,9 @@
             <StackPanel Grid.Row="1" Grid.Column="2">
                 <TextBlock Text="2.3" />
             </StackPanel>
-            <cs:PlayBarView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" DataContext="{Binding PlayBarViewModel}"/>
+            <cs:PlayBarView Name="MyPlayBarView"
+                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                            DataContext="{Binding PlayBarViewModel}"/>
 
 
         </Grid>

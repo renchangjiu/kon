@@ -2,7 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sys="using:System"
              xmlns:vm="using:kon.ViewModels"
+             xmlns:cs="using:kon.Controls"
              x:DataType="vm:PlayBarViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="70"
              x:Class="kon.Controls.PlayBarView">
@@ -33,12 +35,43 @@
                 <Button Content="b1"></Button>
                 <Button Content="b2"></Button>
             </StackPanel>
-            <StackPanel Margin="20 5 20 0" VerticalAlignment="Center">
-                <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Content="111" />
-                    <Button Content="222"></Button>
+            <StackPanel Margin="20 0 20 0" Orientation="Vertical">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="28">
+                    <cs:HoverImage Source="/Assets/Icons/顺序播放.png"
+                                   HoverSource="/Assets/Icons/prev_music_hover.png"
+                                   Width="16" />
+                    <cs:HoverImage Source="/Assets/Icons/prev_music.png"
+                                   HoverSource="/Assets/Icons/prev_music_hover.png"
+                                   Width="32" />
+                    <cs:HoverImage Source="/Assets/Icons/btnPlayingState.png"
+                                   HoverSource="/Assets/Icons/btnPlayingStateHover.png"
+                                   Width="38" />
+                    <cs:HoverImage Source="/Assets/Icons/next_music.png"
+                                   HoverSource="/Assets/Icons/next_music_hover.png"
+                                   Width="32" />
+                    <cs:HoverImage Source="/Assets/Icons/lyric.png"
+                                   Width="16" />
+                </StackPanel>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="00:00" />
+                    <TextBlock DockPanel.Dock="Right"
+                               Text="{Binding Music.DurationFormatted}" />
+                    <Slider Name="MySlider">
+                        <Slider.Resources>
+                            <ResourceDictionary>
+                                <SolidColorBrush x:Key="SliderThumbBackground">red</SolidColorBrush>
+                                <x:Double x:Key="SliderHorizontalThumbHeight">3</x:Double>
+                                <Thickness x:Key="SliderTopHeaderMargin">0,0,0,0</Thickness>
+                                <x:Double x:Key="SliderHorizontalHeight">30</x:Double>
+                                <x:Double x:Key="SliderVerticalWidth">30</x:Double>
+                                <x:Double x:Key="SliderHorizontalThumbWidth">5</x:Double>
+                                <x:Double x:Key="SliderVerticalThumbWidth">3</x:Double>
+                                <x:Double x:Key="SliderVerticalThumbHeight">3</x:Double>
+                            </ResourceDictionary>
+                        </Slider.Resources>
+                    </Slider>
                 </DockPanel>
-                <Slider></Slider>
             </StackPanel>
         </DockPanel>
     </Border>
