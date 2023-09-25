@@ -7,6 +7,8 @@
              x:Class="kon.Controls.HoverImage">
     <Image Name="ThisImage"
            Source="{Binding ElementName=hoverImage, Path=Source}"
+           Width="{Binding ElementName=hoverImage, Path=Width}"
+           Height="{Binding ElementName=hoverImage, Path=Height}"
            PointerEntered="OnPointerEntered"
            PointerExited="OnPointerExited" />
 </UserControl>

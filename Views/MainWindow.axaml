@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cs="using:kon.Controls"
         mc:Ignorable="d"
-        d:DesignWidth="800" d:DesignHeight="450"
+        d:DesignWidth="1000" d:DesignHeight="500"
         Width="1024" Height="670"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -24,7 +24,7 @@
 
     <Border BoxShadow="5 5 10 0 #E0E0E0"
             Margin="0">
-        <Grid RowDefinitions="60,*,90">
+        <Grid RowDefinitions="60,*,72">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MinWidth="200" />
                 <ColumnDefinition Width="Auto" />
@@ -45,8 +45,8 @@
                 <TextBlock Text="2.3" />
             </StackPanel>
             <cs:PlayBarView Name="MyPlayBarView"
-                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                            DataContext="{Binding PlayBarViewModel}"/>
+                            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                            DataContext="{Binding PlayBarViewModel}" />
 
 
         </Grid>

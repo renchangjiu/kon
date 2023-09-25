@@ -9,11 +9,15 @@ public class MainWindowViewModel : ViewModelBase {
     private PlayBarViewModel playBarViewModel;
 
 
-    public MainWindowViewModel() {
-        PlayBarViewModel = new PlayBarViewModel();
-        PlayBarViewModel.Music = CommonUtils.ParseToMusic("C:/Users/su/Desktop/放課後ティータイム - Listen!!.flac");
-
+    public MainWindowViewModel(PlayBarViewModel playBarViewModel) {
+        this.playBarViewModel = playBarViewModel;
     }
+
+    // public MainWindowViewModel() {
+    //
+    //     PlayBarViewModel.Music = CommonUtils.ParseToMusic("C:/Users/su/Desktop/放課後ティータイム - Listen!!.flac");
+    //
+    // }
 
     public PlayBarViewModel PlayBarViewModel {
         get => playBarViewModel;
