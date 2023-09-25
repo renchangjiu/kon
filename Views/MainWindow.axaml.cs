@@ -9,9 +9,6 @@ public partial class MainWindow : Window {
 
     public MainWindow() {
         InitializeComponent();
-        IControlTemplate? mySliderTemplate = MyPlayBarView.MySlider.Template;
-        string? s = mySliderTemplate.ToString();
-        Console.WriteLine("");
     }
 
 }

@@ -57,20 +57,8 @@
                                Text="00:00" />
                     <TextBlock DockPanel.Dock="Right"
                                Text="{Binding Music.DurationFormatted}" />
-                    <Slider Name="MySlider">
-                        <Slider.Resources>
-                            <ResourceDictionary>
-                                <SolidColorBrush x:Key="SliderThumbBackground">red</SolidColorBrush>
-                                <x:Double x:Key="SliderHorizontalThumbHeight">3</x:Double>
-                                <Thickness x:Key="SliderTopHeaderMargin">0,0,0,0</Thickness>
-                                <x:Double x:Key="SliderHorizontalHeight">30</x:Double>
-                                <x:Double x:Key="SliderVerticalWidth">30</x:Double>
-                                <x:Double x:Key="SliderHorizontalThumbWidth">5</x:Double>
-                                <x:Double x:Key="SliderVerticalThumbWidth">3</x:Double>
-                                <x:Double x:Key="SliderVerticalThumbHeight">3</x:Double>
-                            </ResourceDictionary>
-                        </Slider.Resources>
-                    </Slider>
+                    <Slider Theme="{StaticResource ProgressSlider}" />
+
                 </DockPanel>
             </StackPanel>
         </DockPanel>
