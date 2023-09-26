@@ -34,7 +34,7 @@
             <StackPanel DockPanel.Dock="Right" Spacing="10" Orientation="Horizontal">
                 <cs:HoverImage Source="/Assets/Icons/muted.png"
                                HoverSource="/Assets/Icons/muted_hover.png"
-                               Height="40" />
+                               Width="32" />
                 <Image Source="/Assets/Icons/scale.png"
                        Height="14"
                        Margin="2"

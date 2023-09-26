@@ -5,6 +5,16 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Name="hoverImage"
              x:Class="kon.Controls.HoverImage">
+    <UserControl.Resources>
+        <Cursor x:Key="MyCursor">
+            Hand
+        </Cursor>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="Image">
+            <Setter Property="Cursor" Value="{StaticResource MyCursor}" />
+        </Style>
+    </UserControl.Styles>
     <Image Name="ThisImage"
            Source="{Binding ElementName=hoverImage, Path=Source}"
            Width="{Binding ElementName=hoverImage, Path=Width}"
