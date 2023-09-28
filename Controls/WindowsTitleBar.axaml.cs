@@ -20,6 +20,7 @@ public partial class WindowsTitleBar : UserControl {
         CloseButton.PointerPressed += CloseWindow;
         MaximizeBtn.PointerPressed += MaximizeWindow;
         SubscribeToWindowState();
+
     }
 
     private void MaximizeWindow(object? sender, RoutedEventArgs e) {

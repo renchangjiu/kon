@@ -11,7 +11,7 @@ public static class NLogConfig {
     public static void init() {
         string baseDir = Environment.CurrentDirectory;
         var config = new LoggingConfiguration();
-        const string layout = "${longdate} | ${level:uppercase=true} | ${logger} | ${message:withexception=true}";
+        const string layout = "${longdate} | ${level:uppercase=true} | ${threadname}:${threadid} | ${logger} | ${message:withexception=true}";
 
         var logConsole = new ConsoleTarget("logconsole") {
             Layout = layout,
@@ -43,8 +43,8 @@ public static class NLogConfig {
         };
 
 
-        config.AddRule(LogLevel.Info, LogLevel.Fatal, logConsole);
-        config.AddRule(LogLevel.Debug, LogLevel.Warn, logfileInfo);
+        config.AddRule(LogLevel.Debug, LogLevel.Fatal, logConsole);
+        config.AddRule(LogLevel.Info, LogLevel.Warn, logfileInfo);
         config.AddRule(LogLevel.Error, LogLevel.Fatal, logfileError);
 
         LogManager.Configuration = config;

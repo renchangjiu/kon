@@ -1,0 +1,54 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:kon.ViewModels"
+             xmlns:model="using:kon.Models"
+             xmlns:cs="using:kon.Controls"
+             x:DataType="vm:SidebarViewModel"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="400"
+             x:Class="kon.Views.SidebarView">
+    <Design.DataContext>
+        <vm:SidebarViewModel />
+    </Design.DataContext>
+    <UserControl.Styles>
+        <Style Selector="ListBox">
+            <Setter Property="Background" Value="White" />
+        </Style>
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </UserControl.Styles>
+    <StackPanel>
+        <ListBox Name="FixedListBox" SelectedIndex="{Binding FixedSelectedIndex}">
+            <cs:SheetListBoxItem Source="/Assets/Icons/sheet_local.png"
+                                 Text="本地音乐" Tag="" />
+            <cs:SheetListBoxItem Source="/Assets/Icons/sheet_recent.png"
+                                 Text="最近播放" />
+        </ListBox>
+        <DockPanel Margin="10 1 10 1">
+            <cs:HoverImage
+                DockPanel.Dock="Right"
+                PointerPressed="onAddBtnClicked"
+                Height="24"
+                VerticalAlignment="Center"
+                Source="/Assets/Icons/sidebar_sheet_add.png"
+                HoverSource="/Assets/Icons/sidebar_sheet_add_hover.png" />
+            <TextBlock Text="创建的歌单"
+                       FontSize="12"
+                       Foreground="{StaticResource ColorGray}"
+                       VerticalAlignment="Center" />
+        </DockPanel>
+        <ListBox ItemsSource="{Binding Sheets}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type model:Sheet}">
+                    <cs:SheetListBoxItem Source="/Assets/Icons/sheet.png"
+                                         Text="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+    </StackPanel>
+
+
+</UserControl>

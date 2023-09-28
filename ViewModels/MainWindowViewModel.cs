@@ -8,20 +8,32 @@ public class MainWindowViewModel : ViewModelBase {
 
     private PlayBarViewModel playBarViewModel;
 
+    private SidebarViewModel sidebarViewModel;
 
-    public MainWindowViewModel(PlayBarViewModel playBarViewModel) {
+    private MainContentViewModel mainContentViewModel;
+
+
+    public MainWindowViewModel(PlayBarViewModel playBarViewModel, SidebarViewModel sidebarViewModel,
+        MainContentViewModel mainContentViewModel) {
         this.playBarViewModel = playBarViewModel;
+        this.sidebarViewModel = sidebarViewModel;
+        this.mainContentViewModel = mainContentViewModel;
     }
 
-    // public MainWindowViewModel() {
-    //
-    //     PlayBarViewModel.Music = CommonUtils.ParseToMusic("C:/Users/su/Desktop/放課後ティータイム - Listen!!.flac");
-    //
-    // }
 
     public PlayBarViewModel PlayBarViewModel {
         get => playBarViewModel;
         init => this.RaiseAndSetIfChanged(ref playBarViewModel, value);
+    }
+
+    public SidebarViewModel SidebarViewModel {
+        get => sidebarViewModel;
+        set => this.RaiseAndSetIfChanged(ref sidebarViewModel, value);
+    }
+
+    public MainContentViewModel MainContentViewModel {
+        get => mainContentViewModel;
+        set => this.RaiseAndSetIfChanged(ref mainContentViewModel, value);
     }
 
 }

@@ -4,14 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cs="using:kon.Controls"
+        xmlns:views="clr-namespace:kon.Views"
         mc:Ignorable="d"
         d:DesignWidth="1000" d:DesignHeight="500"
         Width="1024" Height="670"
+        MinWidth="1000" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
-        BorderBrush="Black"
-        BorderThickness="1"
+
         x:Class="kon.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/icon.png"
@@ -22,34 +25,30 @@
     </Design.DataContext>
 
 
-    <Border BoxShadow="5 5 10 0 #E0E0E0"
-            Margin="0">
-        <Grid RowDefinitions="60,*,72">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" MinWidth="200" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" MinWidth="800" />
-            </Grid.ColumnDefinitions>
+    <Grid RowDefinitions="60,*,72">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" MinWidth="200" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" MinWidth="800" />
+        </Grid.ColumnDefinitions>
 
-            <cs:WindowsTitleBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
+        <cs:WindowsTitleBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
 
-            <StackPanel Grid.Row="1" Grid.Column="0">
-                <TextBlock Text="2.1" />
-            </StackPanel>
+        <views:SidebarView Name="MySidebarView"
+                           Grid.Row="1" Grid.Column="0"
+                           DataContext="{Binding SidebarViewModel}" />
 
-            <GridSplitter Grid.Row="1" Grid.Column="1"
-                          ResizeDirection="Columns"
-                          MinWidth="1"
-                          Background="{StaticResource ColorGray}" />
-            <StackPanel Grid.Row="1" Grid.Column="2">
-                <TextBlock Text="2.3" />
-            </StackPanel>
-            <cs:PlayBarView Name="MyPlayBarView"
-                            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                            DataContext="{Binding PlayBarViewModel}" />
+        <GridSplitter Grid.Row="1" Grid.Column="1"
+                      ResizeDirection="Columns"
+                      MinWidth="1"
+                      Background="{StaticResource ColorGray}" />
+        <views:MainContentView Name="MyMainContentView"
+                               Grid.Row="1" Grid.Column="2"
+                               DataContext="{Binding MainContentViewModel}" />
+        <views:PlayBarView Name="MyPlayBarView"
+                           Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                           DataContext="{Binding PlayBarViewModel}" />
 
-
-        </Grid>
-    </Border>
+    </Grid>
 
 </Window>

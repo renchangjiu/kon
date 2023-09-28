@@ -16,10 +16,8 @@ public class Playlist {
 
     private List<Music> musics;
 
-    private Player player;
 
-    public Playlist(Player player) {
-        this.player = player;
+    public Playlist() {
         musics = new List<Music>();
     }
 
@@ -29,7 +27,7 @@ public class Playlist {
 
     public void addMusic(Music m) {
         musics.Add(m);
-        if (index < 0) {
+        if (index < 0 || size() == 1) {
             setIndex(0);
         }
     }

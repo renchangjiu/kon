@@ -21,7 +21,7 @@
                    Name="WindowIcon">
             </Image>
             <TextBlock Text="kon player"
-                       FontSize="12"
+                       FontSize="20"
                        Margin="10,0,0,0"
                        Foreground="Black"
                        VerticalAlignment="Center"

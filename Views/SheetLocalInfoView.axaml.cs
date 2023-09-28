@@ -2,16 +2,14 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
-using kon.Utils;
+using NLog;
 
-namespace kon.Controls;
+namespace kon.Views;
 
-public partial class PlayBarView : UserControl {
+public partial class SheetLocalInfoView : UserControl {
 
-    public PlayBarView() {
+    public SheetLocalInfoView() {
         InitializeComponent();
     }
-
-
 
 }

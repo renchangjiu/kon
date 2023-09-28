@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -23,8 +25,7 @@ public partial class App : Application {
     }
 
     public override void OnFrameworkInitializationCompleted() {
-        NLogConfig.init();
-        buildServiceProvider();
+        init();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             desktop.MainWindow = new MainWindow {
@@ -35,15 +36,41 @@ public partial class App : Application {
         base.OnFrameworkInitializationCompleted();
     }
 
-    private static void buildServiceProvider() {
-        ServiceCollection collection = new();
-        collection.AddSingleton<Player>();
-        collection.AddSingleton<Playlist>();
-        collection.AddSingleton<PlayBarViewModel>();
-        collection.AddSingleton<MainWindowViewModel>();
+    public static T getService<T>() where T : notnull {
+        return ServiceProvider.GetRequiredService<T>();
+    }
+
+    public static void init() {
+        NLogConfig.init();
+        buildServiceProvider();
+        if (!Path.Exists(getDataPath())) {
+            Directory.CreateDirectory(getDataPath());
+        }
+    }
+
+    public static void buildServiceProvider() {
+        ServiceCollection co = new();
+
+        co.AddSingleton<DatabaseHandler>();
+        co.AddSingleton<Player>();
+        co.AddSingleton<Playlist>();
+
+        co.AddSingleton<PlayBarViewModel>();
+        co.AddSingleton<SidebarViewModel>();
+        co.AddSingleton<SheetLocalInfoViewModel>();
+        co.AddSingleton<SheetRecentInfoViewModel>();
+        co.AddSingleton<SheetInfoViewModel>();
+        co.AddSingleton<SheetAddViewModel>();
+
+        co.AddSingleton<MainContentViewModel>();
+        co.AddSingleton<MainWindowViewModel>();
 
 
-        ServiceProvider = collection.BuildServiceProvider();
+        ServiceProvider = co.BuildServiceProvider();
+    }
+
+    public static string getDataPath() {
+        return Path.Combine(Environment.CurrentDirectory, "data");
     }
 
 }

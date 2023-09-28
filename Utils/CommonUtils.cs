@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Net;
+using System.Text.Json;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using kon.Models;
@@ -15,13 +17,14 @@ public static class CommonUtils {
         Tag tag = file.Tag;
         Music m = new() {
             Path = path,
-            Size = file.Length,
-            Cover = ParseCover(file, 48),
+            Size = new FileInfo(path).Length,
             Title = tag.Title,
             Performers = tag.Performers,
             Album = tag.Album,
             Duration = (int)file.Properties.Duration.TotalSeconds
         };
+        m.PerformersJson = JsonSerializer.Serialize(m.Performers);
+
         m.DurationFormatted = formatDuration(m.Duration);
 
         file.Dispose();
@@ -29,8 +32,9 @@ public static class CommonUtils {
     }
 
 
-    private static Bitmap? ParseCover(File tagLibFile, int width) {
-        IPicture[] pictures = tagLibFile.Tag.Pictures;
+    public static Bitmap? ParseCover(string path, int width) {
+        File file = File.Create(path);
+        IPicture[] pictures = file.Tag.Pictures;
         if (pictures.Length == 0) {
             return null;
         }
