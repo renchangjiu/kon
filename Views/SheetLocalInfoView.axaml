@@ -9,5 +9,13 @@
     <Design.DataContext>
         <vm:SheetLocalInfoViewModel />
     </Design.DataContext>
-    <TextBlock Text="SheetLocalInfoView" />
+    <!-- <TextBlock Text="SheetLocalInfoView" /> -->
+    <TextBox AcceptsReturn="True" TextWrapping="Wrap">
+        <TextBox.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Copy"/>
+                <MenuItem Header="Paste"/>
+            </ContextMenu>
+        </TextBox.ContextMenu>
+    </TextBox>
 </UserControl>

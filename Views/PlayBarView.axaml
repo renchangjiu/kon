@@ -38,7 +38,7 @@
             </Grid>
 
             <StackPanel DockPanel.Dock="Right" Spacing="10" Orientation="Horizontal">
-                <cs:HoverImage Source="/Assets/Icons/muted.png"
+                <cs:HoverButton Source="/Assets/Icons/muted.png"
                                HoverSource="/Assets/Icons/muted_hover.png"
                                Width="30" />
                 <Image Source="/Assets/Icons/scale.png"
@@ -49,20 +49,20 @@
             <StackPanel Margin="20 5 20 0" Orientation="Vertical"
                         IsEnabled="{Binding CurrentMusic, Converter={x:Static ObjectConverters.IsNotNull}}">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="28">
-                    <cs:HoverImage Source="/Assets/Icons/顺序播放.png"
+                    <cs:HoverButton Source="/Assets/Icons/顺序播放.png"
                                    HoverSource="/Assets/Icons/playbar_prev_hover.png"
                                    Width="16" />
-                    <cs:HoverImage Source="/Assets/Icons/playbar_prev.png"
+                    <cs:HoverButton Source="/Assets/Icons/playbar_prev.png"
                                    HoverSource="/Assets/Icons/playbar_prev_hover.png"
                                    Width="32" />
-                    <cs:HoverImage Source="{Binding PlayBm}"
+                    <cs:HoverButton Source="{Binding PlayBm}"
                                    HoverSource="{Binding PlayHoverBm}"
                                    PointerPressed="onPlayBtnPressed"
                                    Width="38" />
-                    <cs:HoverImage Source="/Assets/Icons/playbar_next.png"
+                    <cs:HoverButton Source="/Assets/Icons/playbar_next.png"
                                    HoverSource="/Assets/Icons/playbar_next_hover.png"
                                    Width="32" />
-                    <cs:HoverImage Source="/Assets/Icons/lyric.png"
+                    <cs:HoverButton Source="/Assets/Icons/lyric.png"
                                    Width="16" />
                 </StackPanel>
                 <DockPanel Margin="0 4 0 0" Width="420">

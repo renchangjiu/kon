@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="kon.App"
              xmlns:local="using:kon"
+             xmlns:sty="using:FluentAvalonia.Styling"
              RequestedThemeVariant="Default">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -10,7 +11,9 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme />
+        <!-- <FluentTheme /> -->
+        <SimpleTheme />
+        <sty:FluentAvaloniaTheme />
     </Application.Styles>
 
     <Application.Resources>

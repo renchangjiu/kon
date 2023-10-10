@@ -1,0 +1,35 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Name="hoverImage"
+             x:Class="kon.Controls.HoverButton">
+
+    <UserControl.Styles>
+        <Style Selector="Image">
+            <Style.Resources>
+                <Cursor x:Key="MyCursor">
+                    Hand
+                </Cursor>
+            </Style.Resources>
+            <Setter Property="Cursor" Value="{StaticResource MyCursor}" />
+        </Style>
+    </UserControl.Styles>
+    <Button Background="Transparent"
+            BorderThickness="0"
+            BorderBrush="Transparent"
+            Command="{Binding ElementName=hoverImage, Path=Command}"
+            Padding="0"
+            PointerEntered="OnPointerEntered"
+            PointerExited="OnPointerExited">
+        <Button.Resources>
+            <SolidColorBrush x:Key="ButtonBackgroundPointerOver">Transparent</SolidColorBrush>
+        </Button.Resources>
+        <Image Name="ThisImage"
+               Source="{Binding ElementName=hoverImage, Path=Source}"
+               Width="{Binding ElementName=hoverImage, Path=Width}"
+               Height="{Binding ElementName=hoverImage, Path=Height}" />
+    </Button>
+
+</UserControl>

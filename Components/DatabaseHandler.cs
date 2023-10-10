@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using kon.Models;
 using SQLite;
@@ -30,6 +31,20 @@ public class DatabaseHandler {
 
     public void deleteMusic(int id) {
         db.Delete(id, new TableMapping(typeof(Music)));
+    }
+
+    public void addSheet(string name) {
+        Sheet sheet = new() {
+            Name = name,
+            Created = DateTime.Now,
+            PlayCount = 0,
+        };
+        db.Insert(sheet);
+    }
+
+    public List<Sheet> listSheet() {
+        TableQuery<Sheet> query = db.Table<Sheet>();
+        return query.ToList();
     }
 
 }

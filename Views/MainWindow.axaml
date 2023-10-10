@@ -24,31 +24,32 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
+    <DockPanel>
+        <cs:WindowsTitleBar DockPanel.Dock="Top" Height="60" />
+        <Border BorderBrush="{StaticResource ColorGray}" BorderThickness="1,0,1,1">
+            <Grid RowDefinitions="*,72">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" MinWidth="200" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" MinWidth="800" />
+                </Grid.ColumnDefinitions>
+                <views:SidebarView Name="MySidebarView"
+                                   Grid.Row="0" Grid.Column="0"
+                                   DataContext="{Binding SidebarViewModel}" />
+                <GridSplitter Grid.Row="0" Grid.Column="1"
+                              ResizeDirection="Columns"
+                              MinWidth="1"
+                              Background="{StaticResource ColorGray}" />
+                <views:MainContentView Name="MyMainContentView"
+                                       Grid.Row="0" Grid.Column="2"
+                                       DataContext="{Binding MainContentViewModel}" />
+                <views:PlayBarView Name="MyPlayBarView"
+                                   Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                   DataContext="{Binding PlayBarViewModel}" />
 
-    <Grid RowDefinitions="60,*,72">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" MinWidth="200" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" MinWidth="800" />
-        </Grid.ColumnDefinitions>
+            </Grid>
+        </Border>
+    </DockPanel>
 
-        <cs:WindowsTitleBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
-
-        <views:SidebarView Name="MySidebarView"
-                           Grid.Row="1" Grid.Column="0"
-                           DataContext="{Binding SidebarViewModel}" />
-
-        <GridSplitter Grid.Row="1" Grid.Column="1"
-                      ResizeDirection="Columns"
-                      MinWidth="1"
-                      Background="{StaticResource ColorGray}" />
-        <views:MainContentView Name="MyMainContentView"
-                               Grid.Row="1" Grid.Column="2"
-                               DataContext="{Binding MainContentViewModel}" />
-        <views:PlayBarView Name="MyPlayBarView"
-                           Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                           DataContext="{Binding PlayBarViewModel}" />
-
-    </Grid>
 
 </Window>

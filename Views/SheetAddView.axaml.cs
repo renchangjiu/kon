@@ -6,9 +6,9 @@ using kon.ViewModels;
 
 namespace kon.Views;
 
-public partial class SheetAddWindow : ReactiveWindow<SheetAddViewModel> {
+public partial class SheetAddView : ReactiveUserControl<SheetAddViewModel> {
 
-    public SheetAddWindow() {
+    public SheetAddView() {
         InitializeComponent();
     }
 

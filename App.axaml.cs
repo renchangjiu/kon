@@ -60,7 +60,7 @@ public partial class App : Application {
         co.AddSingleton<SheetLocalInfoViewModel>();
         co.AddSingleton<SheetRecentInfoViewModel>();
         co.AddSingleton<SheetInfoViewModel>();
-        co.AddSingleton<SheetAddViewModel>();
+        // co.AddSingleton<SheetAddViewModel>();
 
         co.AddSingleton<MainContentViewModel>();
         co.AddSingleton<MainWindowViewModel>();

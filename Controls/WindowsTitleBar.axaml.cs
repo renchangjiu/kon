@@ -16,9 +16,9 @@ public partial class WindowsTitleBar : UserControl {
 
     public WindowsTitleBar() {
         InitializeComponent();
-        MinimizeButton.PointerPressed += MinimizeWindow;
-        CloseButton.PointerPressed += CloseWindow;
-        MaximizeBtn.PointerPressed += MaximizeWindow;
+        MinimizeButton.Tapped += MinimizeWindow;
+        CloseButton.Tapped += CloseWindow;
+        MaximizeBtn.Tapped += MaximizeWindow;
         SubscribeToWindowState();
 
     }
