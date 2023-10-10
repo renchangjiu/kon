@@ -1,14 +1,14 @@
-using System;
-using Avalonia.Controls;
-using Avalonia.Controls.Templates;
-using Avalonia.Markup.Xaml;
+using FluentAvalonia.UI.Windowing;
 
 namespace kon.Views;
 
-public partial class MainWindow : Window {
+public partial class MainWindow : AppWindow {
 
     public MainWindow() {
         InitializeComponent();
+        TitleBar.ExtendsContentIntoTitleBar = true;
+        TitleBar.Height = 0;
+
     }
 
 }

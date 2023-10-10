@@ -9,9 +9,11 @@
              x:DataType="vm:SidebarViewModel"
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="400"
              x:Class="kon.Views.SidebarView">
+
     <Design.DataContext>
         <vm:SidebarViewModel />
     </Design.DataContext>
+
     <UserControl.Styles>
         <Style Selector="ListBox">
             <Setter Property="Background" Value="White" />
@@ -20,6 +22,7 @@
             <Setter Property="Padding" Value="5" />
         </Style>
     </UserControl.Styles>
+
     <StackPanel>
         <ListBox Name="FixedListBox" SelectedIndex="{Binding FixedSelectedIndex}">
             <cs:SheetListBoxItem Source="/Assets/Icons/sheet_local.png"
@@ -27,6 +30,7 @@
             <cs:SheetListBoxItem Source="/Assets/Icons/sheet_recent.png"
                                  Text="最近播放" />
         </ListBox>
+
         <DockPanel Margin="10 1 10 1">
             <cs:HoverButton DockPanel.Dock="Right"
                             Height="24"
@@ -40,22 +44,26 @@
                        Foreground="{StaticResource ColorGray}"
                        VerticalAlignment="Center" />
         </DockPanel>
-        <ListBox ItemsSource="{Binding Sheets}">
+
+        <ListBox
+            Name="ListBox1"
+            ItemsSource="{Binding Sheets}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal"
-                                Height="38"
+                                Background="Transparent"
+                                Height="40">
+                        <StackPanel.ContextFlyout>
+                            <ui:FAMenuFlyout Placement="Bottom">
+                                <ui:MenuFlyoutItem Text="删除歌单 (Delete)"
+                                                   IconSource="Delete"
+                                                   Tag="{Binding}"
+                                                   PointerPressed="handleDeleteSheet" />
+                            </ui:FAMenuFlyout>
+                        </StackPanel.ContextFlyout>
 
-                                >
-                        <StackPanel.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Copy"/>
-                                <MenuItem Header="{Binding Name}"/>
-                            </ContextMenu>
-                        </StackPanel.ContextMenu>
-                        <Image Source="/Assets/Icons/sheet.png" Width="30" />
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" >
-                        </TextBlock>
+                        <Image Source="/Assets/Icons/sheet.png" Width="32" />
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

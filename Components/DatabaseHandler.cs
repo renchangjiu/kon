@@ -47,4 +47,7 @@ public class DatabaseHandler {
         return query.ToList();
     }
 
+    public void deleteSheet(int id) {
+        db.Delete(id, new TableMapping(typeof(Sheet)));
+    }
 }

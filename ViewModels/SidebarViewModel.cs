@@ -57,11 +57,20 @@ public class SidebarViewModel : ViewModelBase {
     }
 
     public async void executeOpenCommand() {
-        // ContentDialog dialog = SheetAddViewModel.CreateDialog();
-        // ContentDialogResult ret = await dialog.ShowAsync();
-        // if (ret == ContentDialogResult.Primary) {
-        //     Sheets = db.listSheet();
-        // }
+        ContentDialog dialog = SheetAddViewModel.CreateDialog();
+        ContentDialogResult ret = await dialog.ShowAsync();
+        if (ret == ContentDialogResult.Primary) {
+            flushSheets();
+        }
+    }
+
+    public void doDeleteSheet(int sheetId) {
+        db.deleteSheet(sheetId);
+        flushSheets();
+    }
+
+    private void flushSheets() {
+        Sheets = db.listSheet();
     }
 
 }
