@@ -21,7 +21,7 @@
 
     <DockPanel>
         <cs:WindowsTitleBar DockPanel.Dock="Top" Height="60" />
-        <Grid RowDefinitions="*,72">
+        <Grid RowDefinitions="*,72" Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MinWidth="200" />
                 <ColumnDefinition Width="Auto" />

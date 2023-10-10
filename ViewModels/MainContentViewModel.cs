@@ -29,6 +29,9 @@ public class MainContentViewModel : ViewModelBase {
 
     public void switchPage(Type type) {
         ViewModelBase? vm = App.ServiceProvider.GetRequiredService(type) as ViewModelBase;
+        // if (vm is SheetInfoViewModel model) {
+        //     model.Sheet =
+        // }
         CurrentPage = vm;
     }
 

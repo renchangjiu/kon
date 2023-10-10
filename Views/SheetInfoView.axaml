@@ -9,5 +9,5 @@
     <Design.DataContext>
         <vm:SheetInfoViewModel />
     </Design.DataContext>
-    SheetInfoView
+    <TextBlock Text="{Binding Sheet.Name}"/>
 </UserControl>

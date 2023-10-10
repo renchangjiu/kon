@@ -45,9 +45,19 @@
                        VerticalAlignment="Center" />
         </DockPanel>
 
-        <ListBox
-            Name="ListBox1"
-            ItemsSource="{Binding Sheets}">
+        <ListBox Name="ListBox1"
+                 SelectedItem="{Binding SheetSelectedItem}"
+                 SelectionChanged="ListBox1_OnSelectionChanged"
+                 ItemsSource="{Binding Sheets}">
+            <!-- <ListBox.Styles> -->
+            <!--     <Style Selector="ListBoxItem"> -->
+                    <!-- <Setter Property="IsVisible" Value="Red" /> -->
+            <!--     </Style> -->
+            <!-- </ListBox.Styles> -->
+            <!-- <ListBox.Resources> -->
+            <!--     <SolidColorBrush x:Key="ThemeAccentBrush4">Red</SolidColorBrush> -->
+            <!--     <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush">Green</SolidColorBrush> -->
+            <!-- </ListBox.Resources> -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal"

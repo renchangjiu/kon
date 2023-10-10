@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Reactive;
-using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
-using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using kon.Components;
 using kon.Models;
-using kon.Views;
-using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using ReactiveUI;
-using Brushes = Avalonia.Media.Brushes;
 
 namespace kon.ViewModels;
 
@@ -26,15 +16,16 @@ public class SidebarViewModel : ViewModelBase {
     private List<Sheet> sheets;
 
     private int _fixedSelectedIndex;
+    private Sheet? _sheetSelectedItem;
 
     private DatabaseHandler db;
 
     public SidebarViewModel(DatabaseHandler db) {
         this.db = db;
         sheets = this.db.listSheet();
+        MainContentViewModel mc = App.getService<MainContentViewModel>();
         this.WhenAnyValue(model => model.FixedSelectedIndex)
             .Subscribe(idx => {
-                MainContentViewModel mc = App.getService<MainContentViewModel>();
                 switch (idx) {
                     case 0:
                         mc.switchPage(typeof(SheetLocalInfoViewModel));
@@ -43,6 +34,13 @@ public class SidebarViewModel : ViewModelBase {
                         mc.switchPage(typeof(SheetRecentInfoViewModel));
                         break;
                 }
+            });
+        this.WhenAnyValue(model => model.SheetSelectedItem)
+            .WhereNotNull()
+            .Subscribe(sheet => {
+                SheetInfoViewModel tvm = App.getService<SheetInfoViewModel>();
+                tvm.Sheet = sheet;
+                mc.switchPage(typeof(SheetInfoViewModel));
             });
     }
 
@@ -54,6 +52,11 @@ public class SidebarViewModel : ViewModelBase {
     public int FixedSelectedIndex {
         get => _fixedSelectedIndex;
         set => this.RaiseAndSetIfChanged(ref _fixedSelectedIndex, value);
+    }
+
+    public Sheet? SheetSelectedItem {
+        get => _sheetSelectedItem;
+        set => this.RaiseAndSetIfChanged(ref _sheetSelectedItem, value);
     }
 
     public async void executeOpenCommand() {
