@@ -15,7 +15,7 @@ public class Music {
     /// <summary>
     /// 所属歌单ID
     /// </summary>
-    public string Mid { get; set; }
+    public int Mid { get; set; }
 
     public string Path { get; set; }
 
@@ -43,5 +43,35 @@ public class Music {
     public int Duration { get; set; }
 
     public string? DurationFormatted { get; set; }
+
+
+    protected bool Equals(Music other) {
+        return Path == other.Path;
+    }
+
+    /// <summary>
+    /// check equals by "Path"
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public override bool Equals(object? obj) {
+        if (ReferenceEquals(null, obj)) {
+            return false;
+        }
+
+        if (ReferenceEquals(this, obj)) {
+            return true;
+        }
+
+        if (obj.GetType() != this.GetType()) {
+            return false;
+        }
+
+        return Equals((Music)obj);
+    }
+
+    public override int GetHashCode() {
+        return Path.GetHashCode();
+    }
 
 }

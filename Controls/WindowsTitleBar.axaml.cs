@@ -50,14 +50,14 @@ public partial class WindowsTitleBar : UserControl {
     }
 
     private async void SubscribeToWindowState() {
-        Window hostWindow = (Window)this.VisualRoot;
+        Window window = (Window)this.VisualRoot;
 
-        while (hostWindow == null) {
-            hostWindow = (Window)this.VisualRoot;
+        while (window == null) {
+            window = (Window)this.VisualRoot;
             await Task.Delay(50);
         }
 
-        hostWindow.GetObservable(Window.WindowStateProperty).Subscribe(s => {
+        window.GetObservable(Window.WindowStateProperty).Subscribe(s => {
             if (s != WindowState.Maximized) {
                 MaximizeBtn.Source = CommonUtils.getBitmapFromAsset("/Assets/Icons/maximize.png");
                 MaximizeBtn.HoverSource = CommonUtils.getBitmapFromAsset("/Assets/Icons/maximize_hover.png");

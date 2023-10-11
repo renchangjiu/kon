@@ -9,5 +9,29 @@
     <Design.DataContext>
         <vm:SheetLocalInfoViewModel />
     </Design.DataContext>
-    <TextBlock Text="SheetLocalInfoView" />
+    <Border>
+        <Grid Margin="30" RowDefinitions="Auto Auto *">
+            <DockPanel Grid.Row="0">
+                <TextBlock
+                    Text="选择目录"
+                    DockPanel.Dock="Right" />
+                <TextBlock
+                    Text="{Binding Musics.Count, StringFormat='本地共有{0}首歌曲'}" />
+
+            </DockPanel>
+            <DockPanel Grid.Row="1">
+                <Button Content="占位"></Button>
+            </DockPanel>
+            <!-- <StackPanel> -->
+            <DataGrid Grid.Row="2"
+                      ItemsSource="{Binding Musics}"
+                      AutoGenerateColumns="True" IsReadOnly="True"
+                      GridLinesVisibility="All"
+                      RowBackground="#fafafa"
+                     >
+            </DataGrid>
+            <!-- </StackPanel> -->
+        </Grid>
+    </Border>
+
 </UserControl>

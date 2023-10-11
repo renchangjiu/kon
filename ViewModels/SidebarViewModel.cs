@@ -26,6 +26,7 @@ public class SidebarViewModel : ViewModelBase {
         MainContentViewModel mc = App.getService<MainContentViewModel>();
         this.WhenAnyValue(model => model.FixedSelectedIndex)
             .Subscribe(idx => {
+                SheetSelectedItem = null;
                 switch (idx) {
                     case 0:
                         mc.switchPage(typeof(SheetLocalInfoViewModel));
@@ -38,6 +39,7 @@ public class SidebarViewModel : ViewModelBase {
         this.WhenAnyValue(model => model.SheetSelectedItem)
             .WhereNotNull()
             .Subscribe(sheet => {
+                FixedSelectedIndex = -1;
                 SheetInfoViewModel tvm = App.getService<SheetInfoViewModel>();
                 tvm.Sheet = sheet;
                 mc.switchPage(typeof(SheetInfoViewModel));

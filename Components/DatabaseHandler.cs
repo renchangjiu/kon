@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using kon.Models;
+using kon.Utils;
 using SQLite;
 
 namespace kon.Components;
@@ -11,7 +13,7 @@ public class DatabaseHandler {
     private readonly SQLiteConnection db;
 
     public DatabaseHandler() {
-        db = new(Path.Combine(App.getDataPath(), "data.db"));
+        db = new SQLiteConnection(Path.Combine(App.getDataPath(), "data.db"));
         db.CreateTables<Music, Sheet>();
     }
 
@@ -23,10 +25,17 @@ public class DatabaseHandler {
         db.Update(m);
     }
 
-    public List<Music> listMusic() {
-        TableQuery<Music> query = db.Table<Music>();
+    public List<Music> listMusic(int sheetId) {
+        return db.Table<Music>()
+            .Where(m => m.Mid == sheetId)
+            .ToList();
+    }
 
-        return query.ToList();
+    public HashSet<string> listMusicPaths(int sheetId) {
+        return db.Table<Music>()
+            .Where(m => m.Mid == sheetId)
+            .Select(m => m.Path)
+            .ToHashSet();
     }
 
     public void deleteMusic(int id) {
@@ -50,4 +59,5 @@ public class DatabaseHandler {
     public void deleteSheet(int id) {
         db.Delete(id, new TableMapping(typeof(Sheet)));
     }
+
 }

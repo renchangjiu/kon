@@ -13,6 +13,7 @@
         x:Class="kon.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/icon.png"
+        FontFamily="宋体"
         Title="kon">
 
     <Design.DataContext>

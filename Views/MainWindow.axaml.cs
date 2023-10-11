@@ -8,7 +8,6 @@ public partial class MainWindow : AppWindow {
         InitializeComponent();
         TitleBar.ExtendsContentIntoTitleBar = true;
         TitleBar.Height = 0;
-
     }
 
 }

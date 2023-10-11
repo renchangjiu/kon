@@ -12,15 +12,17 @@
 
     <Application.Styles>
         <!-- <FluentTheme /> -->
-        <SimpleTheme />
+        <!-- <SimpleTheme /> -->
         <sty:FluentAvaloniaTheme />
+        <!-- <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/> -->
     </Application.Styles>
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Assets/Resources.axaml" />
-                <ResourceInclude Source="/Controls/ProgressSlider.axaml" />
+                <ResourceInclude Source="/Styles/ProgressSlider.axaml" />
+                <ResourceInclude Source="/Styles/ListBoxStyles.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
