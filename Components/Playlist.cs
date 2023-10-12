@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using kon.Enums;
 using kon.Models;
 
@@ -8,9 +9,9 @@ public class Playlist {
 
     public PlayMode Mode { get; set; } = PlayMode.Loop;
 
-    public delegate void CurrentMusicChangedHandler(Music m);
+    public event EventHandler<Music> OnCurrentMusicChanged;
 
-    public event CurrentMusicChangedHandler CurrentMusicChanged;
+    public event EventHandler<List<Music>> OnContentChanged;
 
     private int index = -1;
 
@@ -19,6 +20,12 @@ public class Playlist {
 
     public Playlist() {
         musics = new List<Music>();
+    }
+
+    public void replace(List<Music> ms, int idx) {
+        musics = ms;
+        setIndex(idx);
+        raiseEvent();
     }
 
     public bool isEmpty() {
@@ -30,10 +37,12 @@ public class Playlist {
         if (index < 0 || size() == 1) {
             setIndex(0);
         }
+        raiseEvent();
     }
 
     public void insertMusic(Music m, int idx) {
         musics.Insert(idx, m);
+        raiseEvent();
     }
 
     public int size() {
@@ -45,10 +54,13 @@ public class Playlist {
     }
 
     public void setIndex(int idx) {
-        if (index != idx) {
-            index = idx;
-            CurrentMusicChanged?.Invoke(getCurrentMusic());
-        }
+        // if (index != idx) {
+        index = idx;
+        OnCurrentMusicChanged?.Invoke(this, getCurrentMusic());
+        // }
     }
 
+    private void raiseEvent() {
+        OnContentChanged?.Invoke(this, musics);
+    }
 }

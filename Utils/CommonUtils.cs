@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -11,20 +12,24 @@ namespace kon.Utils;
 
 public static class CommonUtils {
 
+    private static readonly JsonSerializerOptions JsonSerializerOptions = new() {
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
     public static Music ParseToMusic(string path) {
         File file = File.Create(path);
         Tag tag = file.Tag;
         Music m = new() {
             Path = path,
             Size = new FileInfo(path).Length,
-            Title = tag.Title,
-            Performers = tag.Performers,
+            Title = tag.Title ?? Path.GetFileNameWithoutExtension(path),
+            Performer = string.Join(CC.PerformerSep, tag.Performers),
             Album = tag.Album,
             Duration = (int)file.Properties.Duration.TotalSeconds
         };
-        m.PerformersJson = JsonSerializer.Serialize(m.Performers);
 
         m.DurationFormatted = formatDuration(m.Duration);
+        m.SizeFormatted = formatSize(m.Size);
 
         file.Dispose();
         return m;
@@ -70,6 +75,12 @@ public static class CommonUtils {
         }
 
         return min + ":" + sec;
+    }
+
+    public static string formatSize(long size) {
+        decimal d = size;
+        decimal dr = d / 1024 / 1024;
+        return dr.ToString("F1") + "MB";
     }
 
 }

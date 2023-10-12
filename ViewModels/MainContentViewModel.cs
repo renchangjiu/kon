@@ -17,27 +17,41 @@ public class MainContentViewModel : ViewModelBase {
 
     private ViewModelBase _currentPage;
 
+    private bool _isPaneOpen = false;
+
+    public PlaylistViewModel PlaylistViewModel { get; }
+
 
     public MainContentViewModel(SheetLocalInfoViewModel sheetLocalInfoViewModel,
-        SheetRecentInfoViewModel sheetRecentInfoViewModel, SheetInfoViewModel sheetInfoViewModel) {
+        SheetRecentInfoViewModel sheetRecentInfoViewModel,
+        SheetInfoViewModel sheetInfoViewModel,
+        PlaylistViewModel playlistViewModel) {
         this.sheetLocalInfoViewModel = sheetLocalInfoViewModel;
         this.sheetRecentInfoViewModel = sheetRecentInfoViewModel;
         this.sheetInfoViewModel = sheetInfoViewModel;
+        PlaylistViewModel = playlistViewModel;
 
         CurrentPage = sheetLocalInfoViewModel;
     }
 
     public void switchPage(Type type) {
         ViewModelBase? vm = App.ServiceProvider.GetRequiredService(type) as ViewModelBase;
-        // if (vm is SheetInfoViewModel model) {
-        //     model.Sheet =
-        // }
         CurrentPage = vm;
+    }
+
+
+    public void SwitchPlaylistViewVisible() {
+        IsPaneOpen = !IsPaneOpen;
     }
 
     public ViewModelBase CurrentPage {
         get => _currentPage;
         set => this.RaiseAndSetIfChanged(ref _currentPage, value);
+    }
+
+    public bool IsPaneOpen {
+        get => _isPaneOpen;
+        set => this.RaiseAndSetIfChanged(ref _isPaneOpen, value);
     }
 
 }

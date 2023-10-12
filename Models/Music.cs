@@ -24,16 +24,20 @@ public class Music {
     /// </summary>
     public long Size { get; set; }
 
+    /// <summary>
+    /// 文件大小, like: 10MB
+    /// </summary>
+    public string SizeFormatted { get; set; }
+
     [Ignore]
     public Bitmap? Cover { get; set; }
 
     public string Title { get; set; }
 
-
-    public string PerformersJson { get; set; }
-
-    [Ignore]
-    public string[] Performers { get; set; }
+    /// <summary>
+    /// 歌手, 多人间用 " | " 分隔
+    /// </summary>
+    public string Performer { get; set; }
 
     public string Album { get; set; }
 
@@ -44,6 +48,11 @@ public class Music {
 
     public string? DurationFormatted { get; set; }
 
+    /// <summary>
+    /// 在某歌单内的下标, base 0
+    /// </summary>
+    [Ignore]
+    public int Index { get; set; }
 
     protected bool Equals(Music other) {
         return Path == other.Path;

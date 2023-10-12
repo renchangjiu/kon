@@ -29,7 +29,7 @@ public partial class App : Application {
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             desktop.MainWindow = new MainWindow {
-                DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>()
+                DataContext = getService<MainWindowViewModel>()
             };
         }
 
@@ -58,11 +58,11 @@ public partial class App : Application {
         co.AddSingleton<LocalMusicSearcher>();
 
         co.AddSingleton<PlayBarViewModel>();
+        co.AddSingleton<PlaylistViewModel>();
         co.AddSingleton<SidebarViewModel>();
         co.AddSingleton<SheetLocalInfoViewModel>();
         co.AddSingleton<SheetRecentInfoViewModel>();
         co.AddSingleton<SheetInfoViewModel>();
-        // co.AddSingleton<SheetAddViewModel>();
 
         co.AddSingleton<MainContentViewModel>();
         co.AddSingleton<MainWindowViewModel>();

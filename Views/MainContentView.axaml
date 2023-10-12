@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:kon.ViewModels"
+             xmlns:view="using:kon.Views"
              x:DataType="vm:MainContentViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="kon.Views.MainContentView">
@@ -11,6 +12,16 @@
         <vm:MainContentViewModel />
     </Design.DataContext>
 
+    <SplitView IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}"
+               PanePlacement="Right"
+               OpenPaneLength="430"
+               DisplayMode="Overlay">
 
-    <TransitioningContentControl Content="{Binding CurrentPage}" />
+        <SplitView.Pane>
+            <view:PlaylistView Content="{Binding PlaylistViewModel}" />
+        </SplitView.Pane>
+
+        <TransitioningContentControl Content="{Binding CurrentPage}" />
+    </SplitView>
+
 </UserControl>

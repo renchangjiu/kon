@@ -45,9 +45,9 @@ public class PlayBarViewModel : ViewModelBase {
         this.playlist = playlist;
         this.player = player;
 
-        this.playlist.CurrentMusicChanged += mc => {
-            CurrentMusic = mc;
-            Log.Info("CurrentMusicChanged");
+        this.playlist.OnCurrentMusicChanged += (sender, m) => {
+            CurrentMusic = m;
+            Log.Info("OnCurrentMusicChanged");
         };
 
         this.player.OnPositionChanged += (sender, pos) => {
@@ -65,7 +65,6 @@ public class PlayBarViewModel : ViewModelBase {
             }
         };
 
-        // this.playlist.addMusic(CommonUtils.ParseToMusic("C:/Users/su/Desktop/放課後ティータイム - Listen!!.flac"));
         this.WhenAnyValue(model => model.CurrentMusic)
             .Subscribe(o => {
                 if (CurrentMusic != null) {
@@ -80,10 +79,6 @@ public class PlayBarViewModel : ViewModelBase {
 
                 Log.Debug(pos + "-" + this.player.Position);
             });
-
-
-        // Stream fs = AssetLoader.Open(new Uri("avares://kon/Assets/Icons/default_music_image.png"));
-        // DefaultCover = new Bitmap(fs);
     }
 
     public void handlePlay() {
@@ -91,6 +86,12 @@ public class PlayBarViewModel : ViewModelBase {
             player.play(CurrentMusic);
         }
     }
+
+    public void switchPlaylistViewVisible() {
+        MainContentViewModel vm = App.getService<MainContentViewModel>();
+        vm.SwitchPlaylistViewVisible();
+    }
+
 
     public Music? CurrentMusic {
         get => currentCurrentMusic;

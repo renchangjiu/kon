@@ -1,0 +1,57 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:kon.ViewModels"
+             xmlns:mo="using:kon.Models"
+             x:DataType="vm:PlaylistViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="White"
+             x:Class="kon.Views.PlaylistView">
+
+    <Design.DataContext>
+        <vm:PlaylistViewModel />
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <x:Double x:Key="FontSize">13</x:Double>
+    </UserControl.Resources>
+
+    <Border BorderBrush="{StaticResource ColorGray}" BorderThickness="1 0 0 0">
+        <Grid RowDefinitions="Auto Auto *" Margin="20">
+            <TextBlock
+                Grid.Row="0"
+                Text="当前播放"
+                FontSize="30"
+                FontWeight="Bold" />
+            <DockPanel Grid.Row="1">
+                <Button Content="占位"></Button>
+            </DockPanel>
+            <DataGrid
+                Grid.Row="2"
+                ItemsSource="{Binding Musics}"
+                HeadersVisibility="None"
+                IsReadOnly="True"
+                RowBackground="#fafafa">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn
+                        Header="音乐标题"
+                        Width="3.2*">
+                        <DataTemplate DataType="mo:Music">
+                            <StackPanel ToolTip.Tip="{Binding Path}" Background="Transparent"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" FontSize="{StaticResource FontSize}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="歌手" Binding="{Binding Performer , TargetNullValue='未知'}" Width="1.2*"
+                                        FontSize="{StaticResource FontSize}" />
+                    <DataGridTextColumn Header="时长" Binding="{Binding DurationFormatted, TargetNullValue='未知'}"
+                                        Width="*" FontSize="{StaticResource FontSize}" />
+                    <DataGridTextColumn Header="时长" Binding="{Binding DurationFormatted, TargetNullValue='未知'}"
+                                        Width="*" FontSize="{StaticResource FontSize}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Border>
+</UserControl>

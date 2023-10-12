@@ -13,7 +13,7 @@ public partial class PlayBarView : ReactiveUserControl<PlayBarViewModel> {
     }
 
 
-    private void onPlayBtnPressed(object? sender, PointerPressedEventArgs e) {
+    private void onPlayBtnPressed(object? sender, TappedEventArgs e) {
         ViewModel?.handlePlay();
     }
 

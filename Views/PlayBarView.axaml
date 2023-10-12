@@ -2,19 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:sys="using:System"
              xmlns:vm="using:kon.ViewModels"
              xmlns:cs="using:kon.Controls"
-             xmlns:conv="using:kon.Converters"
              x:DataType="vm:PlayBarViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="70"
              x:Class="kon.Views.PlayBarView">
     <Design.DataContext>
         <vm:PlayBarViewModel />
     </Design.DataContext>
-    <UserControl.Resources>
-        <conv:CoverConverter x:Key="CoverConverter" />
-    </UserControl.Resources>
     <Border
         BorderBrush="{StaticResource ColorGray}"
         BorderThickness="0 1 0 0">
@@ -34,13 +29,17 @@
                            Margin="0 5 0 0"
                            VerticalAlignment="Center" />
                 <TextBlock Grid.Row="1" Grid.Column="1"
-                           Text="{Binding CurrentMusic.Performers[0]}" />
+                           Text="{Binding CurrentMusic.Performer}" />
             </Grid>
 
             <StackPanel DockPanel.Dock="Right" Spacing="10" Orientation="Horizontal">
-                <cs:HoverButton Source="/Assets/Icons/muted.png"
-                               HoverSource="/Assets/Icons/muted_hover.png"
-                               Width="30" />
+                <cs:HoverButton Source="/Assets/Icons/playbar_muted.png"
+                                HoverSource="/Assets/Icons/playbar_muted_hover.png"
+                                Width="40" />
+                <cs:HoverButton Source="/Assets/Icons/playbar_playlist.png"
+                                HoverSource="/Assets/Icons/playbar_playlist_hover.png"
+                                Command="{Binding switchPlaylistViewVisible}"
+                                Width="40" />
                 <Image Source="/Assets/Icons/scale.png"
                        Height="14"
                        Margin="2"
@@ -50,20 +49,20 @@
                         IsEnabled="{Binding CurrentMusic, Converter={x:Static ObjectConverters.IsNotNull}}">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="28">
                     <cs:HoverButton Source="/Assets/Icons/顺序播放.png"
-                                   HoverSource="/Assets/Icons/playbar_prev_hover.png"
-                                   Width="16" />
+                                    HoverSource="/Assets/Icons/playbar_prev_hover.png"
+                                    Width="16" />
                     <cs:HoverButton Source="/Assets/Icons/playbar_prev.png"
-                                   HoverSource="/Assets/Icons/playbar_prev_hover.png"
-                                   Width="32" />
+                                    HoverSource="/Assets/Icons/playbar_prev_hover.png"
+                                    Width="32" />
                     <cs:HoverButton Source="{Binding PlayBm}"
-                                   HoverSource="{Binding PlayHoverBm}"
-                                   PointerPressed="onPlayBtnPressed"
-                                   Width="38" />
+                                    HoverSource="{Binding PlayHoverBm}"
+                                    Tapped="onPlayBtnPressed"
+                                    Width="38" />
                     <cs:HoverButton Source="/Assets/Icons/playbar_next.png"
-                                   HoverSource="/Assets/Icons/playbar_next_hover.png"
-                                   Width="32" />
+                                    HoverSource="/Assets/Icons/playbar_next_hover.png"
+                                    Width="32" />
                     <cs:HoverButton Source="/Assets/Icons/lyric.png"
-                                   Width="16" />
+                                    Width="16" />
                 </StackPanel>
                 <DockPanel Margin="0 4 0 0" Width="420">
                     <TextBlock DockPanel.Dock="Left"

@@ -10,7 +10,6 @@ namespace kon;
 public class Tests {
 
     public static void test1() {
-        string formatDuration = CommonUtils.formatDuration(150);
         Console.WriteLine("");
     }
 
@@ -21,4 +20,5 @@ public class Tests {
         // db.CreateTable<Music>();
         string[] arr = { "\"a", "b" };
     }
+
 }

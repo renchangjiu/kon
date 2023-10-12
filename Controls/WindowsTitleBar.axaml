@@ -22,8 +22,9 @@
             </Image>
             <TextBlock Text="kon player"
                        FontSize="20"
+                       FontWeight="Bold"
                        Margin="10,0,0,0"
-                       Foreground="Black"
+                       Foreground="White"
                        VerticalAlignment="Center"
                        IsHitTestVisible="False"
                        Name="SystemChromeTitle">
