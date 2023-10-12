@@ -72,7 +72,6 @@
             </DockPanel>
 
             <ListBox
-
                 SelectedItem="{Binding SheetSelectedItem}"
                 ItemsSource="{Binding Sheets}">
             </ListBox>

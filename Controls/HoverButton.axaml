@@ -6,21 +6,12 @@
              Name="hoverImage"
              x:Class="kon.Controls.HoverButton">
 
-    <UserControl.Styles>
-        <Style Selector="Image">
-            <Style.Resources>
-                <Cursor x:Key="MyCursor">
-                    Hand
-                </Cursor>
-            </Style.Resources>
-            <Setter Property="Cursor" Value="{StaticResource MyCursor}" />
-        </Style>
-    </UserControl.Styles>
     <Button Background="Transparent"
             BorderThickness="0"
             BorderBrush="Transparent"
             Command="{Binding ElementName=hoverImage, Path=Command}"
             Padding="0"
+            Cursor="Hand"
             PointerEntered="OnPointerEntered"
             PointerExited="OnPointerExited">
         <Button.Resources>

@@ -15,6 +15,10 @@
             <DockPanel Grid.Row="0">
                 <TextBlock
                     Text="选择目录"
+                    FontSize="13"
+                    Foreground="DodgerBlue"
+                    Cursor="Hand"
+                    PointerPressed="OnPointerPressed"
                     DockPanel.Dock="Right" />
                 <TextBlock
                     Text="{Binding Musics.Count, StringFormat='本地共有{0}首歌曲'}" />
