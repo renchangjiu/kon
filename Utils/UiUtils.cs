@@ -6,9 +6,9 @@ namespace kon.Utils;
 
 public static class UiUtils {
 
-    public static MainWindow? GetMainWindow(Visual? visual) {
+    public static Window GetWindow(Visual? visual) {
         TopLevel? topLevel = TopLevel.GetTopLevel(visual);
-        return topLevel as MainWindow;
+        return (topLevel as Window)!;
     }
 
 }

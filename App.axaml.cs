@@ -54,9 +54,11 @@ public partial class App : Application {
         co.AddSingleton<DatabaseHandler>();
         co.AddSingleton<Player>();
         co.AddSingleton<Playlist>();
+        co.AddSingleton<Settings>();
 
         co.AddSingleton<LocalMusicSearcher>();
 
+        co.AddSingleton<ChooseMusicDirViewModel>();
         co.AddSingleton<PlayBarViewModel>();
         co.AddSingleton<PlaylistViewModel>();
         co.AddSingleton<SidebarViewModel>();

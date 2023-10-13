@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:vm="using:kon.ViewModels"
              xmlns:mo="using:kon.Models"
              x:DataType="vm:SheetLocalInfoViewModel"
@@ -10,9 +11,14 @@
     <Design.DataContext>
         <vm:SheetLocalInfoViewModel />
     </Design.DataContext>
+
+
     <Border>
         <Grid Margin="30" RowDefinitions="Auto Auto *">
             <DockPanel Grid.Row="0">
+                <TextBlock
+                    DockPanel.Dock="Left"
+                    Text="{Binding Musics.Count, StringFormat='本地共有{0}首歌曲'}" />
                 <TextBlock
                     Text="选择目录"
                     FontSize="13"
@@ -21,11 +27,15 @@
                     PointerPressed="OnPointerPressed"
                     DockPanel.Dock="Right" />
                 <TextBlock
-                    Text="{Binding Musics.Count, StringFormat='本地共有{0}首歌曲'}" />
+                    IsVisible="{Binding !!FoundedMusic}"
+                    Text="{Binding FoundedMusic.Path, StringFormat='扫描中... {0}', FallbackValue=''}"
+                    FontSize="11"
+                    VerticalAlignment="Center"
+                    Margin="10 0 0 0" />
 
             </DockPanel>
-            <DockPanel Grid.Row="1">
-                <Button Content="占位"></Button>
+            <DockPanel Grid.Row="1" Margin="0 10 0 10">
+                <Button Content="占位" Theme="{StaticResource RedButton}"></Button>
             </DockPanel>
             <DataGrid Grid.Row="2"
                       ItemsSource="{Binding Musics}"
@@ -49,8 +59,8 @@
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="歌手" Binding="{Binding Performer , TargetNullValue='未知'}" Width="1.5*" />
-                    <DataGridTextColumn Header="专辑" Binding="{Binding Album, TargetNullValue='未知'}" Width="1.5*" />
+                    <DataGridTextColumn Header="歌手" Binding="{Binding Performer, TargetNullValue='未知歌手'}" Width="1.5*" />
+                    <DataGridTextColumn Header="专辑" Binding="{Binding Album, TargetNullValue='未知专辑'}" Width="1.5*" />
                     <DataGridTextColumn Header="时长" Binding="{Binding DurationFormatted, TargetNullValue='未知'}"
                                         Width="*" />
                     <DataGridTextColumn Header="大小" Binding="{Binding SizeFormatted}" Width="*" />

@@ -32,14 +32,14 @@ public class Music {
     [Ignore]
     public Bitmap? Cover { get; set; }
 
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// 歌手, 多人间用 " | " 分隔
     /// </summary>
-    public string Performer { get; set; }
+    public string? Performer { get; set; }
 
-    public string Album { get; set; }
+    public string? Album { get; set; }
 
     /// <summary>
     /// 时长, 秒

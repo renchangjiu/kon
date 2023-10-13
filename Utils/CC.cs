@@ -1,6 +1,15 @@
-﻿namespace kon.Utils;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+
+namespace kon.Utils;
 
 public static class CC {
+
+
+    public static readonly JsonSerializerOptions JsonSerializerOptions = new() {
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
 
     /// <summary>
     /// 默认歌单(即本地歌单)ID

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAvalonia.Core;
 using kon.Models;
 using kon.Utils;
 using NLog;
@@ -20,15 +19,18 @@ public class LocalMusicSearcher {
 
     public event Action? OnFinished;
 
-    private DatabaseHandler db;
+    private readonly DatabaseHandler db;
+
+    private readonly Settings settings;
 
     private readonly List<DirectoryInfo> roots;
 
     // 在歌单中已存在的歌曲
     private readonly HashSet<string> existMusicPaths;
 
-    public LocalMusicSearcher(DatabaseHandler db) {
+    public LocalMusicSearcher(DatabaseHandler db, Settings settings) {
         this.db = db;
+        this.settings = settings;
         roots = getRootDirectories();
         existMusicPaths = this.db.listMusicPaths(CC.LocalSheetId);
     }
@@ -52,6 +54,10 @@ public class LocalMusicSearcher {
     }
 
     private void search(DirectoryInfo dir) {
+        if (!dir.Exists) {
+            return;
+        }
+
         List<DirectoryInfo> dirs = new();
         dirs.Add(dir);
         while (dirs.Any()) {
@@ -77,7 +83,7 @@ public class LocalMusicSearcher {
                     m.Mid = CC.LocalSheetId;
 
                     db.addMusic(m);
-
+                    // Thread.Sleep(1000);
                     OnFindNew?.Invoke(this, m);
                 }
             }
@@ -90,14 +96,10 @@ public class LocalMusicSearcher {
     });
 
 
-    private static List<DirectoryInfo> getRootDirectories() {
-        List<DirectoryInfo> res = new();
-        // TODO
-        res.Add(new DirectoryInfo("C:/Users/su/Desktop/"));
-        res.Add(new DirectoryInfo("D:/download/[Airota&Nekomoe kissaten&VCB-Studio] Yagate Kimi ni Naru [Ma10p_1080p]"));
-        res.Add(new DirectoryInfo("C:/Users/su/Music"));
-        res.Add(new DirectoryInfo("D:/CloudMusic"));
-        return res;
+    private List<DirectoryInfo> getRootDirectories() {
+        List<string> paths = settings.Config.MusicDirs;
+        List<DirectoryInfo> dirs = paths.Select(p => new DirectoryInfo(p)).ToList();
+        return dirs;
     }
 
     private static FileInfo[] getFiles(DirectoryInfo dir) {
@@ -114,6 +116,14 @@ public class LocalMusicSearcher {
         } catch (UnauthorizedAccessException e) {
             return Array.Empty<DirectoryInfo>();
         }
+    }
+
+    public static List<string> guessMusicDirs() {
+        List<string> res = new();
+
+        res.Add(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
+
+        return res;
     }
 
 }

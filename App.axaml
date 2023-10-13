@@ -20,6 +20,8 @@
                 <ResourceInclude Source="/Assets/Resources.axaml" />
                 <ResourceInclude Source="/Styles/ProgressSlider.axaml" />
                 <ResourceInclude Source="/Styles/ListBoxStyles.axaml" />
+                <ResourceInclude Source="/Styles/ContentDialogStyles.axaml" />
+                <ResourceInclude Source="/Styles/RedButtonStyles.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

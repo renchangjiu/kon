@@ -45,7 +45,7 @@ public partial class WindowsTitleBar : UserControl {
 
     private void OnPointerPressed(object? sender, PointerPressedEventArgs e) {
         if (sender is DockPanel) {
-            UiUtils.GetMainWindow(this)?.BeginMoveDrag(e);
+            UiUtils.GetWindow(this).BeginMoveDrag(e);
         }
     }
 

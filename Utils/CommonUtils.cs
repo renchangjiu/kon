@@ -12,9 +12,6 @@ namespace kon.Utils;
 
 public static class CommonUtils {
 
-    private static readonly JsonSerializerOptions JsonSerializerOptions = new() {
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-    };
 
     public static Music ParseToMusic(string path) {
         File file = File.Create(path);
@@ -27,6 +24,9 @@ public static class CommonUtils {
             Album = tag.Album,
             Duration = (int)file.Properties.Duration.TotalSeconds
         };
+        if (string.Empty == m.Performer) {
+            m.Performer = null;
+        }
 
         m.DurationFormatted = formatDuration(m.Duration);
         m.SizeFormatted = formatSize(m.Size);

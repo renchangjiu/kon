@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using kon.Models;
-using kon.Utils;
 using SQLite;
 
 namespace kon.Components;

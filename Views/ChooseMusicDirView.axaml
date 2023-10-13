@@ -1,0 +1,43 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:kon.ViewModels"
+             x:DataType="vm:ChooseMusicDirViewModel"
+             mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="180" Width="420" Height="180"
+             x:Class="kon.Views.ChooseMusicDirView">
+
+    <Design.DataContext>
+        <vm:ChooseMusicDirViewModel />
+    </Design.DataContext>
+
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="{x:Type vm:CheckableMusicDir}">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillUnchecked">LightGray</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillUncheckedPointerOver">LightGray</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" >#EC4141</SolidColorBrush>
+                    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillCheckedPointerOver" >#EC4141</SolidColorBrush>
+                    <Thickness x:Key="CheckBoxBorderThickness">0</Thickness>
+                </StackPanel.Resources>
+                <CheckBox IsChecked="{Binding IsChecked}"
+
+                          Content="{Binding Path}" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.DataTemplates>
+
+    <Border>
+        <DockPanel>
+            <TextBlock
+                Text="将自动扫描您勾选的目录，文件增删实时同步。"
+                FontSize="13"
+                Padding="16 0 0 8"
+                DockPanel.Dock="Top" />
+            <ListBox ItemsSource="{Binding MusicDirs}" Margin="0" Padding="0">
+
+            </ListBox>
+        </DockPanel>
+    </Border>
+</UserControl>

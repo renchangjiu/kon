@@ -7,9 +7,13 @@
         <Border Padding="50">
             <ui:ContentDialog Title="Title"
                               Content="Content goes here"
+                              PrimaryButtonText="确认"
                               core:VisualStateHelper.ForcedClassesProperty=":open" />
         </Border>
     </Design.PreviewWith>
+
+    <CornerRadius x:Key="ButtonCornerRadius">10</CornerRadius>
+    <SolidColorBrush x:Key="SubtleFillColorSecondaryBrush">Green</SolidColorBrush>
 
     <ControlTheme x:Key="{x:Type ui:ContentDialog}" TargetType="ui:ContentDialog">
         <Setter Property="Foreground" Value="{DynamicResource ContentDialogForeground}" />
@@ -47,7 +51,7 @@
                                                   VerticalScrollBarVisibility="Auto">
                                         <Border Background="{DynamicResource ContentDialogTopOverlay}"
                                                 Padding="{DynamicResource ContentDialogPadding}"
-                                                BorderThickness="{StaticResource ContentDialogSeparatorThickness}"
+                                                BorderThickness="0"
                                                 BorderBrush="{DynamicResource ContentDialogSeparatorBorderBrush}">
                                             <Grid RowDefinitions="Auto,*">
                                                 <Grid.Styles>
@@ -64,14 +68,14 @@
                                                                 FontFamily="Default"
                                                                 FontWeight="SemiBold"
                                                                 Foreground="{TemplateBinding Foreground}"
-                                                                HorizontalAlignment="Left"
+                                                                HorizontalAlignment="Center"
                                                                 VerticalAlignment="Top">
                                                     <ContentControl.Template>
                                                         <ControlTemplate>
                                                             <ContentPresenter Content="{TemplateBinding Content}"
                                                                               ContentTemplate="{TemplateBinding ContentTemplate}"
                                                                               Margin="{TemplateBinding Padding}"
-                                                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                              HorizontalAlignment="Center"
                                                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                                         </ControlTemplate>
                                                     </ContentControl.Template>
@@ -106,6 +110,8 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
                                             <Button Name="PrimaryButton"
+                                                    Theme="{StaticResource RedButton}"
+                                                    CornerRadius="{DynamicResource ButtonCornerRadius}"
                                                     Content="{TemplateBinding PrimaryButtonText}"
                                                     IsEnabled="{TemplateBinding IsPrimaryButtonEnabled}"
                                                     HorizontalAlignment="Stretch"
@@ -115,6 +121,7 @@
                                                     IsVisible="False" />
 
                                             <Button Name="SecondaryButton"
+                                                    CornerRadius="{DynamicResource ButtonCornerRadius}"
                                                     Content="{TemplateBinding SecondaryButtonText}"
                                                     IsEnabled="{TemplateBinding IsSecondaryButtonEnabled}"
                                                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -123,6 +130,7 @@
                                                     IsVisible="False" />
 
                                             <Button Name="CloseButton"
+                                                    CornerRadius="{DynamicResource ButtonCornerRadius}"
                                                     Content="{TemplateBinding CloseButtonText}"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
@@ -341,6 +349,9 @@
             <Setter Property="Grid.Column" Value="3" />
             <Setter Property="Grid.ColumnSpan" Value="1" />
             <Setter Property="Margin" Value="4 0 0 0" />
+        </Style>
+        <Style Selector="^:pointerover /template/ Button#PrimaryButton ui|FABorder#Root">
+            <Setter Property="Background" Value="Green" />
         </Style>
     </ControlTheme>
 
