@@ -9,6 +9,9 @@ using NLog;
 
 namespace kon.Components;
 
+/// <summary>
+/// TODO: file watch
+/// </summary>
 public class LocalMusicSearcher {
 
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
@@ -100,6 +103,11 @@ public class LocalMusicSearcher {
         List<string> paths = settings.Config.MusicDirs;
         List<DirectoryInfo> dirs = paths.Select(p => new DirectoryInfo(p)).ToList();
         return dirs;
+    }
+
+
+    private void watchDirs() {
+
     }
 
     private static FileInfo[] getFiles(DirectoryInfo dir) {

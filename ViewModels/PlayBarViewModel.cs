@@ -5,10 +5,12 @@ using Avalonia.Animation;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using kon.Components;
+using kon.Enums;
 using kon.Models;
 using kon.Utils;
 using NLog;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace kon.ViewModels;
 
@@ -16,30 +18,19 @@ public class PlayBarViewModel : ViewModelBase {
 
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
-
-    private Music? currentCurrentMusic;
-
-    private Bitmap _defaultCover;
-
     private Playlist playlist;
 
     private Player player;
 
+    [Reactive]
+    public Music? CurrentMusic { get; set; }
 
-    private int _position;
-    private string _positionFormatted = "00:00";
-    private Bitmap _playBm = PausedBm;
-    private Bitmap _playHoverBm = PausedHoverBm;
+    [Reactive]
+    public int Position { get; set; }
 
-    private static readonly Bitmap PlayingBm = CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_play.png");
+    [Reactive]
+    public string PositionFormatted { get; set; } = "00:00";
 
-    private static readonly Bitmap PlayingHoverBm =
-        CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_play_hover.png");
-
-    private static readonly Bitmap PausedBm = CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_pause.png");
-
-    private static readonly Bitmap PausedHoverBm =
-        CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_pause_hover.png");
 
     public PlayBarViewModel(Playlist playlist, Player player) {
         this.playlist = playlist;
@@ -56,13 +47,13 @@ public class PlayBarViewModel : ViewModelBase {
         };
 
         this.player.OnStateChanged += (sender, state) => {
-            if (state == PlayState.Run) {
-                PlayBm = PlayingBm;
-                PlayHoverBm = PlayingHoverBm;
-            } else {
-                PlayBm = PausedBm;
-                PlayHoverBm = PausedHoverBm;
-            }
+            // if (state == PlayState.Run) {
+            //     PlayBm = PlayingBm;
+            //     PlayHoverBm = PlayingHoverBm;
+            // } else {
+            //     PlayBm = PausedBm;
+            //     PlayHoverBm = PausedHoverBm;
+            // }
         };
 
         this.WhenAnyValue(model => model.CurrentMusic)
@@ -81,46 +72,38 @@ public class PlayBarViewModel : ViewModelBase {
             });
     }
 
-    public void handlePlay() {
+    /// <summary>
+    /// only for designer preview
+    /// </summary>
+    public PlayBarViewModel() {
+        CurrentMusic = CommonUtils.ParseToMusic("D:/CloudMusic/Akie秋绘 - はるのとなり（《摇曳露营\u25b3》第二季ED）（翻自 佐々木恵梨）.mp3");
+        // playlist.Mode = PlayMode.Order;
+    }
+
+    public void HandleMode() {
+
+    }
+
+    public void HandlePlay() {
         if (CurrentMusic != null) {
             player.play(CurrentMusic);
         }
     }
 
+    public void HandlePrev() {
+        playlist.prev();
+        HandlePlay();
+    }
+
+    public void HandleNext() {
+        playlist.next();
+        HandlePlay();
+    }
+
+
     public void switchPlaylistViewVisible() {
         MainContentViewModel vm = App.getService<MainContentViewModel>();
         vm.SwitchPlaylistViewVisible();
-    }
-
-
-    public Music? CurrentMusic {
-        get => currentCurrentMusic;
-        set => this.RaiseAndSetIfChanged(ref currentCurrentMusic, value);
-    }
-
-    public Bitmap DefaultCover {
-        get => _defaultCover;
-        set => this.RaiseAndSetIfChanged(ref _defaultCover, value);
-    }
-
-    public int Position {
-        get => _position;
-        set => this.RaiseAndSetIfChanged(ref _position, value);
-    }
-
-    public string PositionFormatted {
-        get => _positionFormatted;
-        set => this.RaiseAndSetIfChanged(ref _positionFormatted, value);
-    }
-
-    public Bitmap PlayBm {
-        get => _playBm;
-        set => this.RaiseAndSetIfChanged(ref _playBm, value);
-    }
-
-    public Bitmap PlayHoverBm {
-        get => _playHoverBm;
-        set => this.RaiseAndSetIfChanged(ref _playHoverBm, value);
     }
 
 }

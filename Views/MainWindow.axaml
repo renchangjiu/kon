@@ -22,7 +22,7 @@
 
     <DockPanel>
         <cs:WindowsTitleBar DockPanel.Dock="Top" Height="60" />
-        <Grid RowDefinitions="*,72" Background="White">
+        <Grid RowDefinitions="* Auto" Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MinWidth="200" />
                 <ColumnDefinition Width="Auto" />
@@ -34,7 +34,7 @@
             <GridSplitter Grid.Row="0" Grid.Column="1"
                           ResizeDirection="Columns"
                           MinWidth="1"
-                          Background="{StaticResource ColorGray}" />
+                          Background="{StaticResource ColorDivideLine}" />
             <views:MainContentView Name="MyMainContentView"
                                    Grid.Row="0" Grid.Column="2"
                                    DataContext="{Binding MainContentViewModel}" />

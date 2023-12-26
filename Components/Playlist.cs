@@ -7,24 +7,27 @@ namespace kon.Components;
 
 public class Playlist {
 
-    public PlayMode Mode { get; set; } = PlayMode.Loop;
+    public event EventHandler<Music>? OnCurrentMusicChanged;
 
-    public event EventHandler<Music> OnCurrentMusicChanged;
+    public event EventHandler<List<Music>>? OnContentChanged;
 
-    public event EventHandler<List<Music>> OnContentChanged;
+    public event EventHandler<PlayMode>? OnPlayModeChanged;
 
-    private int index = -1;
 
     private List<Music> musics;
 
+    private int _index;
+
+    private PlayMode _mode;
 
     public Playlist() {
         musics = new List<Music>();
     }
 
+
     public void replace(List<Music> ms, int idx) {
         musics = ms;
-        setIndex(idx);
+        Index = idx;
         raiseEvent();
     }
 
@@ -34,9 +37,10 @@ public class Playlist {
 
     public void addMusic(Music m) {
         musics.Add(m);
-        if (index < 0 || size() == 1) {
-            setIndex(0);
+        if (Index < 0 || size() == 1) {
+            Index = 0;
         }
+
         raiseEvent();
     }
 
@@ -50,17 +54,44 @@ public class Playlist {
     }
 
     public Music getCurrentMusic() {
-        return musics[index];
+        return musics[Index];
     }
 
-    public void setIndex(int idx) {
-        // if (index != idx) {
-        index = idx;
-        OnCurrentMusicChanged?.Invoke(this, getCurrentMusic());
-        // }
+
+    public void next() {
+        if (Index == size() - 1) {
+            Index = 0;
+        } else {
+            Index += 1;
+        }
+    }
+
+    public void prev() {
+        if (Index == 0) {
+            Index = size() - 1;
+        } else {
+            Index -= 1;
+        }
+    }
+
+    public int Index {
+        get => _index;
+        set {
+            _index = value;
+            OnCurrentMusicChanged?.Invoke(this, getCurrentMusic());
+        }
+    }
+
+    public PlayMode Mode {
+        get => _mode;
+        set {
+            _mode = value;
+            OnPlayModeChanged?.Invoke(this, _mode);
+        }
     }
 
     private void raiseEvent() {
         OnContentChanged?.Invoke(this, musics);
     }
+
 }

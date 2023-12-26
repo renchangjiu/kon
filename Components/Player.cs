@@ -5,10 +5,12 @@ using Avalonia.Animation;
 using kon.Models;
 using NAudio.Wave;
 using NLog;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace kon.Components;
 
-public class Player {
+public class Player : ReactiveObject {
 
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
     public event EventHandler<int>? OnPositionChanged;
@@ -125,6 +127,7 @@ public class Player {
         return State == PlayState.Stop;
     }
 
+    [Reactive]
     public PlayState State { get; private set; }
 
 }

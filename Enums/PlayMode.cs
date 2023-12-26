@@ -2,6 +2,7 @@
 
 public enum PlayMode {
 
+    Order,
     Loop,
     Random,
     SingleLoop,
