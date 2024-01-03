@@ -18,6 +18,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Assets/Resources.axaml" />
+                <ResourceInclude Source="/Assets/SVGIcon.axaml" />
                 <ResourceInclude Source="/Styles/ProgressSlider.axaml" />
                 <ResourceInclude Source="/Styles/ListBoxStyles.axaml" />
                 <ResourceInclude Source="/Styles/ContentDialogStyles.axaml" />

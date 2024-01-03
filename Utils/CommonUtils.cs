@@ -46,6 +46,9 @@ public static class CommonUtils {
         IPicture pic = pictures[0];
         byte[] bytes = pic.Data.Data;
         MemoryStream ms = new(bytes);
+        // FileStream fs = new FileStream("C:/Users/douziqiang/Desktop/t.jpg", FileMode.CreateNew);
+        // fs.Write(bytes);
+        // fs.Close();
         return Bitmap.DecodeToWidth(ms, width);
     }
 

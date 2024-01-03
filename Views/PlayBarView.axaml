@@ -61,10 +61,22 @@
                         x:Name="PlayBtn"
                         Command="{Binding HandlePlay}"
                         Width="38" />
-                    <cs:HoverButton Source="/Assets/Icons/playbar_next.png"
-                                    HoverSource="/Assets/Icons/playbar_next_hover.png"
-                                    Command="{Binding HandleNext}"
-                                    Width="32" />
+                    <!-- <cs:HoverButton Source="/Assets/Icons/playbar_next.png" -->
+                    <!--                 HoverSource="/Assets/Icons/playbar_next_hover.png" -->
+                    <!--                 Command="{Binding HandleNext}" -->
+                    <!--                 Width="32" /> -->
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        BorderBrush="Transparent">
+                        <PathIcon Height="42" Width="42" Foreground="Red" Data="{StaticResource PlaybarPause}" />
+                    </Button>
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        BorderBrush="Transparent">
+                        <PathIcon Height="18" Foreground="#535b6d" Data="{StaticResource PlaybarNext}" />
+                    </Button>
                     <cs:HoverButton Source="/Assets/Icons/playbar_lyric.png"
                                     HoverSource="/Assets/Icons/playbar_lyric_hover.png"
                                     Width="16" />

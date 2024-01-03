@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using System.Threading;
+using Avalonia.Media.Imaging;
 using kon.Models;
 using kon.Utils;
 using SQLite;
@@ -43,4 +44,9 @@ public class Tests {
         string[] arr = { "\"a", "b" };
     }
 
+
+    public static void testTag() {
+        Bitmap? bitmap = CommonUtils.ParseCover("D:/CloudMusic/亜咲花 - Seize The Day.mp3", 32);
+        Console.WriteLine("");
+    }
 }
