@@ -2,6 +2,8 @@
 using System.IO;
 using System.Reactive;
 using Avalonia.Animation;
+using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using kon.Components;
@@ -29,10 +31,15 @@ public class PlayBarViewModel : ViewModelBase {
     public int Position { get; set; }
 
     [Reactive]
+    public Geometry PlayButtonData { get; set; }
+
+    [Reactive]
     public string PositionFormatted { get; set; } = "00:00";
 
 
     public PlayBarViewModel(Playlist playlist, Player player) {
+        this.init();
+
         this.playlist = playlist;
         this.player = player;
 
@@ -45,15 +52,14 @@ public class PlayBarViewModel : ViewModelBase {
             Position = pos;
             PositionFormatted = CommonUtils.formatDuration(pos);
         };
-
+        PlayButtonData = (Geometry?)App.Current.FindResource("PlaybarPlay");
         this.player.OnStateChanged += (sender, state) => {
-            // if (state == PlayState.Run) {
-            //     PlayBm = PlayingBm;
-            //     PlayHoverBm = PlayingHoverBm;
-            // } else {
-            //     PlayBm = PausedBm;
-            //     PlayHoverBm = PausedHoverBm;
-            // }
+            Log.Debug("OnStateChanged");
+            if (state == PlayState.Run) {
+                PlayButtonData = (Geometry?)App.Current.FindResource("PlaybarPause");
+            } else {
+                PlayButtonData = (Geometry?)App.Current.FindResource("PlaybarPlay");
+            }
         };
 
         this.WhenAnyValue(model => model.CurrentMusic)
@@ -68,7 +74,7 @@ public class PlayBarViewModel : ViewModelBase {
                     this.player.Position = pos;
                 }
 
-                Log.Debug(pos + "-" + this.player.Position);
+                // Log.Debug(pos + "-" + this.player.Position);
             });
     }
 
@@ -76,12 +82,19 @@ public class PlayBarViewModel : ViewModelBase {
     /// only for designer preview
     /// </summary>
     public PlayBarViewModel() {
+        this.init();
         CurrentMusic = CommonUtils.ParseToMusic("D:/CloudMusic/Akie秋绘 - はるのとなり（《摇曳露营\u25b3》第二季ED）（翻自 佐々木恵梨）.mp3");
         // playlist.Mode = PlayMode.Order;
     }
 
-    public void HandleMode() {
+    private void init() {
 
+    }
+
+    public void HandleMode() {
+    }
+
+    public void HandleLyric() {
     }
 
     public void HandlePlay() {

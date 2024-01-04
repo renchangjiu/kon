@@ -36,5 +36,9 @@
         <DependentUpon>PlayBarView.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Controls\SVGButton.axaml.cs">
+        <DependentUpon>SVGButton.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

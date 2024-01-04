@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Brush x:Key="ButtonColor">#535B6D</Brush>
+    <Brush x:Key="ButtonColorPointerOver">#242D41</Brush>
+    <Brush x:Key="PlayButtonColor">#FC3D4D</Brush>
+    <Brush x:Key="PlayButtonColorPointerOver">#E33742</Brush>
+</ResourceDictionary>

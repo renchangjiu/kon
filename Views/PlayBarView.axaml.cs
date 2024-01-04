@@ -13,18 +13,6 @@ namespace kon.Views;
 
 public partial class PlayBarView : ReactiveUserControl<PlayBarViewModel> {
 
-    private static readonly Bitmap PlayingBm =
-        CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_play.png");
-
-    private static readonly Bitmap PlayingHoverBm =
-        CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_play_hover.png");
-
-    private static readonly Bitmap PausedBm =
-        CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_pause.png");
-
-    private static readonly Bitmap PausedHoverBm =
-        CommonUtils.getBitmapFromAsset("/Assets/Icons/playbar_pause_hover.png");
-
     public Playlist playlist { get; }
 
     private Player player { get; }
@@ -38,18 +26,20 @@ public partial class PlayBarView : ReactiveUserControl<PlayBarViewModel> {
 
         this.WhenAnyValue(view => view.player.State)
             .Subscribe(state => {
-                if (state == PlayState.Run) {
-                    PlayBtn.Source = PlayingBm;
-                    PlayBtn.HoverSource = PlayingHoverBm;
-                } else {
-                    PlayBtn.Source = PausedBm;
-                    PlayBtn.HoverSource = PausedHoverBm;
-                }
+                // if (state == PlayState.Run) {
+                //     PlayBtn.Source = PlayingBm;
+                //     PlayBtn.HoverSource = PlayingHoverBm;
+                // } else {
+                //     PlayBtn.Source = PausedBm;
+                //     PlayBtn.HoverSource = PausedHoverBm;
+                // }
             });
 
 
         PlayBarViewModel vm = ViewModel!;
-        this.WhenAnyValue(view => view.ViewModel.Position).Subscribe(i => { Console.WriteLine("view" + i); });
+        this.WhenAnyValue(view => view.ViewModel.Position).Subscribe(i => {
+            // Console.WriteLine("view" + i);
+        });
         Array values = Enum.GetValues(typeof(PlayMode));
     }
 
