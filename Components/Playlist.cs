@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.Json;
 using kon.Enums;
 using kon.Models;
+using kon.Utils;
 
 namespace kon.Components;
 
@@ -20,15 +24,17 @@ public class Playlist {
 
     private PlayMode _mode;
 
+    private readonly FileInfo dest;
+
     public Playlist() {
-        musics = new List<Music>();
+        dest = new FileInfo(Path.Combine(App.getDataPath(), "playlist.json"));
     }
 
 
     public void replace(List<Music> ms, int idx) {
         musics = ms;
         Index = idx;
-        raiseEvent();
+        raiseContentChangedEvent();
     }
 
     public bool isEmpty() {
@@ -41,12 +47,12 @@ public class Playlist {
             Index = 0;
         }
 
-        raiseEvent();
+        raiseContentChangedEvent();
     }
 
     public void insertMusic(Music m, int idx) {
         musics.Insert(idx, m);
-        raiseEvent();
+        raiseContentChangedEvent();
     }
 
     public int size() {
@@ -90,8 +96,49 @@ public class Playlist {
         }
     }
 
-    private void raiseEvent() {
+    public void toNextMode() {
+        int val = ((int)_mode);
+        int len = Enum.GetValues(typeof(PlayMode)).Length;
+        if (val == len - 1) {
+            val = 0;
+        } else {
+            val++;
+        }
+
+        PlayMode next = ((PlayMode)val);
+        Mode = next;
+    }
+
+    private void save() {
+        FileStream fs = dest.Open(FileMode.Create);
+        JsonSerializer.SerializeAsync(fs, musics, CC.JsonSerializerOptions);
+        fs.Close();
+    }
+
+    public void load() {
+        if (!dest.Exists) {
+            musics = [];
+            return;
+        }
+
+        string json = File.ReadAllText(dest.FullName, Encoding.UTF8);
+        if (string.IsNullOrWhiteSpace(json)) {
+            musics = [];
+            return;
+        }
+
+        musics = JsonSerializer.Deserialize<List<Music>>(json)!;
+
+        // TODO: read settings
+        Index = 0;
+        Mode = PlayMode.Repeat;
+
+        raiseContentChangedEvent();
+    }
+
+    private void raiseContentChangedEvent() {
         OnContentChanged?.Invoke(this, musics);
+        save();
     }
 
 }

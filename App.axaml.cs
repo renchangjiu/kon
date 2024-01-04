@@ -48,7 +48,7 @@ public partial class App : Application {
         }
     }
 
-    public static void buildServiceProvider() {
+    private static void buildServiceProvider() {
         ServiceCollection co = new();
 
         co.AddSingleton<DatabaseHandler>();
@@ -68,9 +68,12 @@ public partial class App : Application {
 
         co.AddSingleton<MainContentViewModel>();
         co.AddSingleton<MainWindowViewModel>();
-
-
         ServiceProvider = co.BuildServiceProvider();
+
+        Playlist playlist = getService<Playlist>();
+        getService<PlayBarViewModel>();
+
+        playlist.load();
     }
 
     public static string getDataPath() {

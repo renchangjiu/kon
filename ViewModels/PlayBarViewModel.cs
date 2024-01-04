@@ -20,9 +20,9 @@ public class PlayBarViewModel : ViewModelBase {
 
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
-    private Playlist playlist;
+    private readonly Playlist playlist;
 
-    private Player player;
+    private readonly Player player;
 
     [Reactive]
     public Music? CurrentMusic { get; set; }
@@ -34,19 +34,28 @@ public class PlayBarViewModel : ViewModelBase {
     public Geometry PlayButtonData { get; set; }
 
     [Reactive]
+    public Geometry? ModeButtonData { get; set; }
+
+    [Reactive]
     public string PositionFormatted { get; set; } = "00:00";
 
 
     public PlayBarViewModel(Playlist playlist, Player player) {
-        this.init();
+        init();
 
         this.playlist = playlist;
         this.player = player;
 
         this.playlist.OnCurrentMusicChanged += (sender, m) => {
             CurrentMusic = m;
-            Log.Info("OnCurrentMusicChanged");
+            Log.Debug(nameof(playlist.OnCurrentMusicChanged));
         };
+
+        this.playlist.OnPlayModeChanged += (sender, mode) => {
+            ModeButtonData = (Geometry?)App.Current.FindResource("Playbar" + mode.ToString());
+            Log.Debug(nameof(playlist.OnPlayModeChanged));
+        };
+
 
         this.player.OnPositionChanged += (sender, pos) => {
             Position = pos;
@@ -88,10 +97,10 @@ public class PlayBarViewModel : ViewModelBase {
     }
 
     private void init() {
-
     }
 
     public void HandleMode() {
+        playlist.toNextMode();
     }
 
     public void HandleLyric() {

@@ -34,7 +34,8 @@ public class Player : ReactiveObject {
                     continue;
                 }
 
-                int pos = ((int)audio.CurrentTime.TotalSeconds);
+                TimeSpan audioCurrentTime = audio.CurrentTime;
+                int pos = ((int)audioCurrentTime.TotalSeconds);
                 OnPositionChanged?.Invoke(this, pos);
                 Thread.Sleep(1000);
             }

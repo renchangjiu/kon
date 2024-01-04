@@ -1,12 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Text.Json;
 using System.Threading;
-using Avalonia.Controls;
-using Avalonia.Media.Imaging;
-using kon.Models;
-using kon.Utils;
-using SQLite;
+using kon.Enums;
 
 namespace kon;
 
@@ -47,6 +42,8 @@ public class Tests {
 
 
     public static void test() {
-
+        Array values = Enum.GetValues(typeof(PlayMode));
+        int valuesLength = values.Length;
+        Console.WriteLine("");
     }
 }

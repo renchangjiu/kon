@@ -53,11 +53,11 @@
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="23">
                     <!-- 循环模式 -->
                     <ctrl:SVGButton
-                        Width="{StaticResource ButtonSize}" Height="{StaticResource ButtonSize}"
+                        Width="17" Height="17"
                         Foreground="{StaticResource ButtonColor}"
                         PointerOverForeground="{StaticResource ButtonColorPointerOver}"
                         Command="{Binding HandleMode}"
-                        Data="{StaticResource PlaybarRepeat}" />
+                        Data="{Binding ModeButtonData}" />
 
                     <!-- 上一首 -->
                     <ctrl:SVGButton
