@@ -46,10 +46,12 @@ public static class CommonUtils {
         IPicture pic = pictures[0];
         byte[] bytes = pic.Data.Data;
         MemoryStream ms = new(bytes);
-        // FileStream fs = new FileStream("C:/Users/douziqiang/Desktop/t.jpg", FileMode.CreateNew);
-        // fs.Write(bytes);
-        // fs.Close();
+
+        // return new Bitmap(Bitmap.GetFactory().LoadBitmapToWidth(stream, width, interpolationMode));
+        // return WriteableBitmap.DecodeToWidth(ms, width);
+
         return Bitmap.DecodeToWidth(ms, width);
+        // return null;
     }
 
     /// <param name="path">like: /Assets/icon.ico</param>

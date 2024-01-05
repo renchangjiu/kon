@@ -3,8 +3,6 @@
         xmlns:vm="using:kon.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cs="using:kon.Controls"
-        xmlns:views="clr-namespace:kon.Views"
         mc:Ignorable="d"
         d:DesignWidth="1000" d:DesignHeight="500"
         Width="1024" Height="670"
@@ -20,30 +18,14 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <DockPanel>
-        <cs:WindowsTitleBar DockPanel.Dock="Top" Height="60" />
-        <Grid RowDefinitions="* Auto" Background="White">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" MinWidth="200" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" MinWidth="800" />
-            </Grid.ColumnDefinitions>
-            <views:SidebarView Name="MySidebarView"
-                               Grid.Row="0" Grid.Column="0"
-                               DataContext="{Binding SidebarViewModel}" />
-            <GridSplitter Grid.Row="0" Grid.Column="1"
-                          ResizeDirection="Columns"
-                          MinWidth="1"
-                          Background="{StaticResource ColorDivideLine}" />
-            <views:MainContentView Name="MyMainContentView"
-                                   Grid.Row="0" Grid.Column="2"
-                                   DataContext="{Binding MainContentViewModel}" />
-            <views:PlayBarView Name="MyPlayBarView"
-                               Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                               DataContext="{Binding PlayBarViewModel}" />
-
-        </Grid>
-    </DockPanel>
+    <!-- TODO: 等待官方加入反转方向的属性
+    https://github.com/AvaloniaUI/Avalonia/pull/13003
+     -->
+    <TransitioningContentControl Content="{Binding CurrentPage}">
+        <TransitioningContentControl.PageTransition>
+            <PageSlide Orientation="Vertical"  Duration="0:00:00.300" />
+        </TransitioningContentControl.PageTransition>
+    </TransitioningContentControl>
 
 
 </Window>

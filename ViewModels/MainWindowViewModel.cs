@@ -1,39 +1,34 @@
-﻿using System;
-using kon.Utils;
-using ReactiveUI;
+﻿using ReactiveUI.Fody.Helpers;
 
 namespace kon.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase {
 
-    private PlayBarViewModel playBarViewModel;
-
-    private SidebarViewModel sidebarViewModel;
-
-    private MainContentViewModel mainContentViewModel;
+    [Reactive]
+    public ViewModelBase CurrentPage { get; set; }
 
 
-    public MainWindowViewModel(PlayBarViewModel playBarViewModel, SidebarViewModel sidebarViewModel,
-        MainContentViewModel mainContentViewModel) {
-        this.playBarViewModel = playBarViewModel;
-        this.sidebarViewModel = sidebarViewModel;
-        this.mainContentViewModel = mainContentViewModel;
+    private readonly HomepageViewModel homepageViewModel;
+
+    private readonly PlayPageViewModel playPageViewModel;
+
+
+    public MainWindowViewModel(HomepageViewModel homepageViewModel, PlayPageViewModel playPageViewModel) {
+        this.homepageViewModel = homepageViewModel;
+        this.playPageViewModel = playPageViewModel;
+
+        CurrentPage = this.homepageViewModel;
+
+    }
+
+    public void SwitchToPlayPage() {
+        CurrentPage = playPageViewModel;
+    }
+
+    public void SwitchToHomepage() {
+        CurrentPage = homepageViewModel;
     }
 
 
-    public PlayBarViewModel PlayBarViewModel {
-        get => playBarViewModel;
-        init => this.RaiseAndSetIfChanged(ref playBarViewModel, value);
-    }
-
-    public SidebarViewModel SidebarViewModel {
-        get => sidebarViewModel;
-        set => this.RaiseAndSetIfChanged(ref sidebarViewModel, value);
-    }
-
-    public MainContentViewModel MainContentViewModel {
-        get => mainContentViewModel;
-        set => this.RaiseAndSetIfChanged(ref mainContentViewModel, value);
-    }
 
 }

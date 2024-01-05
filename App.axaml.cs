@@ -43,8 +43,9 @@ public partial class App : Application {
     public static void init() {
         NLogConfig.init();
         buildServiceProvider();
-        if (!Path.Exists(getDataPath())) {
-            Directory.CreateDirectory(getDataPath());
+        string dataPath = getDataPath();
+        if (!Directory.Exists(dataPath)) {
+            Directory.CreateDirectory(dataPath);
         }
     }
 
@@ -68,6 +69,8 @@ public partial class App : Application {
 
         co.AddSingleton<MainContentViewModel>();
         co.AddSingleton<MainWindowViewModel>();
+        co.AddSingleton<HomepageViewModel>();
+        co.AddSingleton<PlayPageViewModel>();
         ServiceProvider = co.BuildServiceProvider();
 
         Playlist playlist = getService<Playlist>();

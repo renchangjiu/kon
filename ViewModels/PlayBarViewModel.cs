@@ -122,6 +122,9 @@ public class PlayBarViewModel : ViewModelBase {
         HandlePlay();
     }
 
+    public void HandleToPlayPage() {
+        App.getService<MainWindowViewModel>().SwitchToPlayPage();
+    }
 
     public void switchPlaylistViewVisible() {
         MainContentViewModel vm = App.getService<MainContentViewModel>();

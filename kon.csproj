@@ -8,6 +8,12 @@
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <LangVersion>12</LangVersion>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
@@ -15,17 +21,17 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.4" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.0.4"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.4"/>
+        <PackageReference Include="Avalonia" Version="11.0.6" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.6" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.6" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4"/>
-        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.4"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.6" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.6" />
         <PackageReference Include="FluentAvaloniaUI" Version="2.0.4" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="NAudio" Version="2.2.1" />
-        <PackageReference Include="NLog" Version="5.2.7" />
-        <PackageReference Include="ReactiveUI.Fody" Version="19.5.31" />
+        <PackageReference Include="NLog" Version="5.2.8" />
+        <PackageReference Include="ReactiveUI.Fody" Version="19.5.39" />
         <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
         <PackageReference Include="TagLibSharp" Version="2.3.0" />
     </ItemGroup>

@@ -1,0 +1,38 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:kon.ViewModels"
+             xmlns:ctrls="using:kon.Controls"
+             xmlns:views="clr-namespace:kon.Views"
+             x:DataType="vm:HomepageViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="kon.Views.HomepageView">
+    <Design.DataContext>
+        <vm:HomepageViewModel />
+    </Design.DataContext>
+    <DockPanel>
+        <ctrls:WindowsTitleBar DockPanel.Dock="Top" Height="60" />
+        <Grid RowDefinitions="* Auto" Background="White" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" MinWidth="200" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" MinWidth="800" />
+            </Grid.ColumnDefinitions>
+            <views:SidebarView Name="MySidebarView"
+                               Grid.Row="0" Grid.Column="0"
+                               DataContext="{Binding SidebarViewModel}" />
+            <GridSplitter Grid.Row="0" Grid.Column="1"
+                          ResizeDirection="Columns"
+                          MinWidth="1"
+                          Background="{StaticResource ColorDivideLine}" />
+            <views:MainContentView Name="MyMainContentView"
+                                   Grid.Row="0" Grid.Column="2"
+                                   DataContext="{Binding MainContentViewModel}" />
+            <views:PlayBarView Name="MyPlayBarView"
+                               Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                               DataContext="{Binding PlayBarViewModel}" />
+
+        </Grid>
+    </DockPanel>
+</UserControl>
