@@ -12,17 +12,21 @@ public class ChooseMusicDirViewModel : ViewModelBase {
     [Reactive]
     public ObservableCollection<CheckableMusicDir> MusicDirs { get; set; } = new();
 
+    private readonly LocalMusicSearcher searcher;
+
     private readonly Settings settings;
 
-    public ChooseMusicDirViewModel(Settings settings) {
+    public ChooseMusicDirViewModel(Settings settings, LocalMusicSearcher searcher) {
         this.settings = settings;
+        this.searcher = searcher;
         flushDirs();
     }
 
     /// <summary>
     /// only for designer preview
     /// </summary>
-    public ChooseMusicDirViewModel() {
+    public ChooseMusicDirViewModel(LocalMusicSearcher searcher) {
+        this.searcher = searcher;
         MusicDirs.Add(new CheckableMusicDir() {
             IsChecked = true,
             Path = "c:/a/b/c"
@@ -62,6 +66,7 @@ public class ChooseMusicDirViewModel : ViewModelBase {
 
         settings.Config.MusicDirs = list;
         settings.save();
+        searcher.start();
     }
 
 }

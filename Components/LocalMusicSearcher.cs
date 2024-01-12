@@ -26,7 +26,6 @@ public class LocalMusicSearcher {
 
     private readonly Settings settings;
 
-    private readonly List<DirectoryInfo> roots;
 
     // 在歌单中已存在的歌曲
     private readonly HashSet<string> existMusicPaths;
@@ -34,7 +33,6 @@ public class LocalMusicSearcher {
     public LocalMusicSearcher(DatabaseHandler db, Settings settings) {
         this.db = db;
         this.settings = settings;
-        roots = getRootDirectories();
         existMusicPaths = this.db.listMusicPaths(CC.LocalSheetId);
     }
 
@@ -42,7 +40,7 @@ public class LocalMusicSearcher {
         OnStarted?.Invoke();
         Task.Run(() => {
             Log.Debug("LocalMusicSearcher started...");
-
+            List<DirectoryInfo> roots = getRootDirectories();
             foreach (var root in roots) {
                 search(root);
             }

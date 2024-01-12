@@ -12,27 +12,40 @@
         <vm:HomepageViewModel />
     </Design.DataContext>
     <DockPanel>
-        <ctrls:WindowsTitleBar DockPanel.Dock="Top" Height="60" />
-        <Grid RowDefinitions="* Auto" Background="White" ShowGridLines="True">
+        <!-- 底部播放栏 -->
+        <views:PlayBarView
+            IsVisible="{Binding PlayBarVisible}"
+            DockPanel.Dock="Bottom"
+            DataContext="{Binding PlayBarViewModel}">
+        </views:PlayBarView>
+
+        <Grid
+            RowDefinitions="60 *" Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MinWidth="200" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" MinWidth="800" />
             </Grid.ColumnDefinitions>
-            <views:SidebarView Name="MySidebarView"
-                               Grid.Row="0" Grid.Column="0"
-                               DataContext="{Binding SidebarViewModel}" />
-            <GridSplitter Grid.Row="0" Grid.Column="1"
-                          ResizeDirection="Columns"
-                          MinWidth="1"
-                          Background="{StaticResource ColorDivideLine}" />
-            <views:MainContentView Name="MyMainContentView"
-                                   Grid.Row="0" Grid.Column="2"
-                                   DataContext="{Binding MainContentViewModel}" />
-            <views:PlayBarView Name="MyPlayBarView"
-                               Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                               DataContext="{Binding PlayBarViewModel}" />
+            <!-- 左侧导航栏 -->
+            <views:SidebarView
+                Grid.Row="0" Grid.Column="0"
+                Grid.RowSpan="2"
+                Background="Transparent"
+                DataContext="{Binding SidebarViewModel}" />
 
+            <GridSplitter Grid.Row="0" Grid.Column="1"
+                          Grid.RowSpan="2"
+                          ResizeDirection="Columns"
+                          MinWidth="2"
+                          Background="{StaticResource ColorDivideLine}" />
+
+            <!-- 标题栏 -->
+            <ctrls:WindowsTitleBar Grid.Row="0" Grid.Column="2" />
+
+            <!-- 主内容栏 -->
+            <views:MainContentView
+                Grid.Row="1" Grid.Column="2"
+                DataContext="{Binding MainContentViewModel}" />
         </Grid>
     </DockPanel>
 </UserControl>

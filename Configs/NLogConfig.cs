@@ -15,6 +15,7 @@ public static class NLogConfig {
 
         var logConsole = new ConsoleTarget("logconsole") {
             Layout = layout,
+            Encoding = Encoding.UTF8
         };
 
         var logfileInfo = new FileTarget("logfile") {

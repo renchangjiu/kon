@@ -60,6 +60,9 @@ public class Playlist {
     }
 
     public Music getCurrentMusic() {
+        if (musics.Count == 0) {
+            return null;
+        }
         return musics[Index];
     }
 
@@ -139,6 +142,12 @@ public class Playlist {
     private void raiseContentChangedEvent() {
         OnContentChanged?.Invoke(this, musics);
         save();
+    }
+
+    public void clear() {
+        musics = [];
+        Index = -1;
+        raiseContentChangedEvent();
     }
 
 }

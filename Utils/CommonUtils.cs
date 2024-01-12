@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text.Encodings.Web;
-using System.Text.Json;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using kon.Models;

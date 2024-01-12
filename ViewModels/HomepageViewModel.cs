@@ -13,13 +13,17 @@ public class HomepageViewModel : ViewModelBase {
     [Reactive]
     public MainContentViewModel MainContentViewModel { get; set; }
 
+
+
+
     public HomepageViewModel(
         PlayBarViewModel playBarViewModel,
         SidebarViewModel sidebarViewModel,
-        MainContentViewModel mainContentViewModel) {
+        MainContentViewModel mainContentViewModel ) {
         PlayBarViewModel = playBarViewModel;
         SidebarViewModel = sidebarViewModel;
         MainContentViewModel = mainContentViewModel;
+
     }
 
 }

@@ -39,12 +39,17 @@ public class PlayBarViewModel : ViewModelBase {
     [Reactive]
     public string PositionFormatted { get; set; } = "00:00";
 
+    [Reactive]
+    public bool PlayBarVisible { get; set; }
 
     public PlayBarViewModel(Playlist playlist, Player player) {
         init();
 
         this.playlist = playlist;
         this.player = player;
+
+
+        this.playlist.OnContentChanged += (sender, list) => { PlayBarVisible = list.Count != 0; };
 
         this.playlist.OnCurrentMusicChanged += (sender, m) => {
             CurrentMusic = m;
@@ -104,6 +109,10 @@ public class PlayBarViewModel : ViewModelBase {
     }
 
     public void HandleLyric() {
+    }
+
+    public void HandleClearPlaylist() {
+        playlist.clear();
     }
 
     public void HandlePlay() {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using kon.Models;
 using kon.Utils;
 using NLog;
 
@@ -14,16 +15,13 @@ public class Settings {
 
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
+    private readonly DatabaseHandler db;
+
     public ConfigC Config { get; private set; }
 
-    private readonly FileInfo dest;
 
-    public Settings() {
-        dest = new FileInfo(Path.Combine(App.getDataPath(), "settings.json"));
-        if (!dest.Exists) {
-            dest.Create();
-        }
-
+    public Settings(DatabaseHandler db) {
+        this.db = db;
         load();
         autoSave();
     }
@@ -40,19 +38,24 @@ public class Settings {
 
     public void save() {
         string json = JsonSerializer.Serialize(Config, CC.JsonSerializerOptions);
-        File.WriteAllText(dest.FullName, json, Encoding.UTF8);
+        Config cfg = new Config() {
+            ConfigKey = CC.CK_SETTINGS,
+            ConfigValue = json
+        };
+        db.updateConfig(cfg);
     }
 
 
     private void load() {
-        string json = File.ReadAllText(dest.FullName, Encoding.UTF8);
-        if (string.IsNullOrWhiteSpace(json)) {
+        string value = db.selectConfig(CC.CK_SETTINGS);
+        if (string.IsNullOrWhiteSpace(value)) {
             Config = new ConfigC();
             Config.MusicDirs = LocalMusicSearcher.guessMusicDirs();
+            save();
             return;
         }
 
-        Config = JsonSerializer.Deserialize<ConfigC>(json)!;
+        Config = JsonSerializer.Deserialize<ConfigC>(value)!;
     }
 
 

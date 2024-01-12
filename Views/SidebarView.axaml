@@ -44,9 +44,8 @@
         </DataTemplate>
     </UserControl.DataTemplates>
 
-    <ScrollViewer
-        Name="MyScrollViewer"
-        >
+
+    <ScrollViewer Name="MyScrollViewer">
         <StackPanel Margin="10">
 
             <ListBox Name="FixedListBox"

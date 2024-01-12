@@ -93,6 +93,10 @@
                         PointerOverForeground="{StaticResource ButtonColorPointerOver}"
                         Command="{Binding HandleLyric}"
                         Data="{StaticResource PlaybarLyric}" />
+
+                    <Button
+                        Command="{Binding HandleClearPlaylist}"
+                        Content="清空播放列表"/>
                 </StackPanel>
 
                 <DockPanel Margin="0 4 0 0" Width="420">

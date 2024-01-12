@@ -5,7 +5,6 @@ namespace kon.Utils;
 
 public static class CC {
 
-
     public static readonly JsonSerializerOptions JsonSerializerOptions = new() {
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
@@ -18,5 +17,7 @@ public static class CC {
 
 
     public const string PerformerSep = " | ";
+
+    public const string CK_SETTINGS = "settings";
 
 }

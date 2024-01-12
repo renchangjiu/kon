@@ -9,7 +9,7 @@ public class Tests {
 
     public static void test1() {
         FileSystemWatcher w = new();
-        w.Path = "C:/Users/su/Desktop";
+        w.Path = "C:/Users/douziqiang/Desktop";
         w.IncludeSubdirectories = true;
         w.Created += (sender, args) => {
             string path = args.FullPath;

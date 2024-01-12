@@ -13,7 +13,7 @@ public class DatabaseHandler {
 
     public DatabaseHandler() {
         db = new SQLiteConnection(Path.Combine(App.getDataPath(), "data.db"));
-        db.CreateTables<Music, Sheet>();
+        db.CreateTables<Music, Sheet, Config>();
     }
 
     public void addMusic(Music m) {
@@ -57,6 +57,17 @@ public class DatabaseHandler {
 
     public void deleteSheet(int id) {
         db.Delete(id, new TableMapping(typeof(Sheet)));
+    }
+
+    public string selectConfig(string key) {
+        TableQuery<Config> query = db.Table<Config>();
+        List<Config> list = query.Where(v => v.ConfigKey.Equals(key)).ToList();
+        return list.Count == 0 ? "" : list[0].ConfigValue;
+    }
+
+    public void updateConfig(Config cfg) {
+        db.Delete<Config>(cfg.ConfigKey);
+        db.Insert(cfg);
     }
 
 }
