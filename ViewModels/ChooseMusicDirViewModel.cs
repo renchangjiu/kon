@@ -39,7 +39,7 @@ public class ChooseMusicDirViewModel : ViewModelBase {
 
     public void flushDirs() {
         MusicDirs.Clear();
-        List<string> olds = settings.Config.MusicDirs.ToList();
+        List<string> olds = settings.Setting.MusicDirs.ToList();
         foreach (var p in olds) {
             MusicDirs.Add(new CheckableMusicDir() {
                 IsChecked = true,
@@ -64,7 +64,7 @@ public class ChooseMusicDirViewModel : ViewModelBase {
             .Select(v => v.Path)
             .ToList();
 
-        settings.Config.MusicDirs = list;
+        settings.Setting.MusicDirs = list;
         settings.save();
         searcher.start();
     }

@@ -40,21 +40,21 @@ public class LocalMusicSearcher {
         OnStarted?.Invoke();
         Task.Run(() => {
             Log.Debug("LocalMusicSearcher started...");
-            List<DirectoryInfo> roots = getRootDirectories();
+            List<DirectoryInfo> roots = GetRootDirectories();
             foreach (var root in roots) {
-                search(root);
+                Search(root);
             }
 
             stop();
         });
     }
 
-    public void stop() {
+    private void stop() {
         Log.Debug("LocalMusicSearcher stopped.");
         OnFinished?.Invoke();
     }
 
-    private void search(DirectoryInfo dir) {
+    private void Search(DirectoryInfo dir) {
         if (!dir.Exists) {
             return;
         }
@@ -65,12 +65,12 @@ public class LocalMusicSearcher {
             DirectoryInfo first = dirs[0];
             // Log.Debug(first.FullName);
             dirs.RemoveAt(0);
-            processFiles(getFiles(first));
+            ProcessFiles(getFiles(first));
             dirs.AddRange(GetDirectories(first));
         }
     }
 
-    private void processFiles(IEnumerable<FileInfo> files) {
+    private void ProcessFiles(IEnumerable<FileInfo> files) {
         foreach (var file in files) {
             // Log.Debug(file.FullName);
             string ext = file.Extension;
@@ -97,15 +97,14 @@ public class LocalMusicSearcher {
     });
 
 
-    private List<DirectoryInfo> getRootDirectories() {
-        List<string> paths = settings.Config.MusicDirs;
+    private List<DirectoryInfo> GetRootDirectories() {
+        List<string> paths = settings.Setting.MusicDirs;
         List<DirectoryInfo> dirs = paths.Select(p => new DirectoryInfo(p)).ToList();
         return dirs;
     }
 
 
     private void watchDirs() {
-
     }
 
     private static FileInfo[] getFiles(DirectoryInfo dir) {
@@ -125,9 +124,12 @@ public class LocalMusicSearcher {
     }
 
     public static List<string> guessMusicDirs() {
-        List<string> res = new();
+        List<string> res = [];
 
-        res.Add(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+        folderPath = folderPath.Replace(@"\", "/");
+
+        res.Add(folderPath);
 
         return res;
     }

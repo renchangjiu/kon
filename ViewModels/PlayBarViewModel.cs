@@ -48,7 +48,9 @@ public class PlayBarViewModel : ViewModelBase {
         this.playlist = playlist;
         this.player = player;
 
-
+        PlayBarVisible = this.playlist.isNotEmpty();
+        CurrentMusic = this.playlist.GetCurrentMusic();
+        ModeButtonData = (Geometry?)App.Current.FindResource("Playbar" + this.playlist.Mode);
         this.playlist.OnContentChanged += (sender, list) => { PlayBarVisible = list.Count != 0; };
 
         this.playlist.OnCurrentMusicChanged += (sender, m) => {
@@ -57,7 +59,7 @@ public class PlayBarViewModel : ViewModelBase {
         };
 
         this.playlist.OnPlayModeChanged += (sender, mode) => {
-            ModeButtonData = (Geometry?)App.Current.FindResource("Playbar" + mode.ToString());
+            ModeButtonData = (Geometry?)App.Current.FindResource("Playbar" + mode);
             Log.Debug(nameof(playlist.OnPlayModeChanged));
         };
 

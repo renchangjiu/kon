@@ -19,5 +19,6 @@ public static class CC {
     public const string PerformerSep = " | ";
 
     public const string CK_SETTINGS = "settings";
+    public const string CK_PLAYLIST = "playlist";
 
 }

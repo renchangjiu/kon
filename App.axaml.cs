@@ -72,11 +72,6 @@ public partial class App : Application {
         co.AddSingleton<HomepageViewModel>();
         co.AddSingleton<PlayPageViewModel>();
         ServiceProvider = co.BuildServiceProvider();
-
-        Playlist playlist = getService<Playlist>();
-        getService<PlayBarViewModel>();
-
-        playlist.load();
     }
 
     public static string getDataPath() {

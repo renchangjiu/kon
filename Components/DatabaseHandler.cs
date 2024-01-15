@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using kon.Models;
+using kon.Utils;
 using SQLite;
 
 namespace kon.Components;
@@ -68,6 +70,15 @@ public class DatabaseHandler {
     public void updateConfig(Config cfg) {
         db.Delete<Config>(cfg.ConfigKey);
         db.Insert(cfg);
+    }
+
+    public void updateConfig(string key, object obj) {
+        string json = JsonSerializer.Serialize(obj, CC.JsonSerializerOptions);
+        Config cfg = new Config() {
+            ConfigKey = key,
+            ConfigValue = json
+        };
+        updateConfig(cfg);
     }
 
 }

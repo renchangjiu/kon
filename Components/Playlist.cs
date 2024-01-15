@@ -18,31 +18,35 @@ public class Playlist {
     public event EventHandler<PlayMode>? OnPlayModeChanged;
 
 
-    private List<Music> musics;
+    private readonly DatabaseHandler db;
 
-    private int _index;
 
-    private PlayMode _mode;
+    private readonly PlaylistInfo info;
 
-    private readonly FileInfo dest;
+    public Playlist(DatabaseHandler db) {
+        this.db = db;
+        info = load();
 
-    public Playlist() {
-        dest = new FileInfo(Path.Combine(App.getDataPath(), "playlist.json"));
+        raiseContentChangedEvent();
     }
 
 
     public void replace(List<Music> ms, int idx) {
-        musics = ms;
+        info.Musics = ms;
         Index = idx;
         raiseContentChangedEvent();
     }
 
     public bool isEmpty() {
-        return musics.Count == 0;
+        return Musics.Count == 0;
+    }
+
+    public bool isNotEmpty() {
+        return !isEmpty();
     }
 
     public void addMusic(Music m) {
-        musics.Add(m);
+        Musics.Add(m);
         if (Index < 0 || size() == 1) {
             Index = 0;
         }
@@ -51,19 +55,20 @@ public class Playlist {
     }
 
     public void insertMusic(Music m, int idx) {
-        musics.Insert(idx, m);
+        Musics.Insert(idx, m);
         raiseContentChangedEvent();
     }
 
     public int size() {
-        return musics.Count;
+        return Musics.Count;
     }
 
-    public Music getCurrentMusic() {
-        if (musics.Count == 0) {
+    public Music GetCurrentMusic() {
+        if (Musics.Count == 0) {
             return null;
         }
-        return musics[Index];
+
+        return Musics[Index];
     }
 
 
@@ -83,24 +88,29 @@ public class Playlist {
         }
     }
 
-    public int Index {
-        get => _index;
+    private int Index {
+        get => info.Index;
         set {
-            _index = value;
-            OnCurrentMusicChanged?.Invoke(this, getCurrentMusic());
+            info.Index = value;
+            OnCurrentMusicChanged?.Invoke(this, GetCurrentMusic());
         }
     }
 
     public PlayMode Mode {
-        get => _mode;
+        get => info.Mode;
         set {
-            _mode = value;
-            OnPlayModeChanged?.Invoke(this, _mode);
+            info.Mode = value;
+            OnPlayModeChanged?.Invoke(this, info.Mode);
         }
     }
 
+    public List<Music> Musics {
+        get => info.Musics;
+        set => info.Musics = value;
+    }
+
     public void toNextMode() {
-        int val = ((int)_mode);
+        int val = ((int)info.Mode);
         int len = Enum.GetValues(typeof(PlayMode)).Length;
         if (val == len - 1) {
             val = 0;
@@ -113,39 +123,25 @@ public class Playlist {
     }
 
     private void save() {
-        FileStream fs = dest.Open(FileMode.Create);
-        JsonSerializer.SerializeAsync(fs, musics, CC.JsonSerializerOptions);
-        fs.Close();
+        db.updateConfig(CC.CK_PLAYLIST, info);
     }
 
-    public void load() {
-        if (!dest.Exists) {
-            musics = [];
-            return;
+    public PlaylistInfo load() {
+        string value = db.selectConfig(CC.CK_PLAYLIST);
+        if (string.IsNullOrWhiteSpace(value)) {
+            return new PlaylistInfo();
         }
 
-        string json = File.ReadAllText(dest.FullName, Encoding.UTF8);
-        if (string.IsNullOrWhiteSpace(json)) {
-            musics = [];
-            return;
-        }
-
-        musics = JsonSerializer.Deserialize<List<Music>>(json)!;
-
-        // TODO: read settings
-        Index = 0;
-        Mode = PlayMode.Repeat;
-
-        raiseContentChangedEvent();
+        return JsonSerializer.Deserialize<PlaylistInfo>(value)!;
     }
 
     private void raiseContentChangedEvent() {
-        OnContentChanged?.Invoke(this, musics);
+        OnContentChanged?.Invoke(this, info.Musics);
         save();
     }
 
     public void clear() {
-        musics = [];
+        info.Musics = [];
         Index = -1;
         raiseContentChangedEvent();
     }
