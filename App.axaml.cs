@@ -1,8 +1,10 @@
 using System;
 using System.IO;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using kon.Components;
 using kon.Configs;
 using kon.ViewModels;
@@ -13,12 +15,7 @@ namespace kon;
 
 public partial class App : Application {
 
-    private static ServiceProvider _serviceProvider;
-
-    public static ServiceProvider ServiceProvider {
-        get => _serviceProvider;
-        private set => _serviceProvider = value;
-    }
+    public static ServiceProvider ServiceProvider { get; private set; }
 
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
@@ -76,6 +73,14 @@ public partial class App : Application {
 
     public static string getDataPath() {
         return Path.Combine(Environment.CurrentDirectory, "data");
+    }
+
+    public static T FindResource<T>(object key) {
+        return (T)Current!.FindResource(key)!;
+    }
+
+    public static Geometry FindGeometryResource(object key) {
+        return FindResource<Geometry>(key);
     }
 
 }

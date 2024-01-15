@@ -6,11 +6,13 @@ using System.Text.Json;
 using kon.Enums;
 using kon.Models;
 using kon.Utils;
+using NLog;
 
 namespace kon.Components;
 
 public class Playlist {
 
+    private static readonly Logger Log = LogManager.GetCurrentClassLogger();
     public event EventHandler<Music>? OnCurrentMusicChanged;
 
     public event EventHandler<List<Music>>? OnContentChanged;
@@ -27,14 +29,14 @@ public class Playlist {
         this.db = db;
         info = load();
 
-        raiseContentChangedEvent();
+        RaiseContentChangedEvent();
     }
 
 
     public void replace(List<Music> ms, int idx) {
         info.Musics = ms;
         Index = idx;
-        raiseContentChangedEvent();
+        RaiseContentChangedEvent();
     }
 
     public bool isEmpty() {
@@ -51,12 +53,12 @@ public class Playlist {
             Index = 0;
         }
 
-        raiseContentChangedEvent();
+        RaiseContentChangedEvent();
     }
 
     public void insertMusic(Music m, int idx) {
         Musics.Insert(idx, m);
-        raiseContentChangedEvent();
+        RaiseContentChangedEvent();
     }
 
     public int size() {
@@ -93,6 +95,7 @@ public class Playlist {
         set {
             info.Index = value;
             OnCurrentMusicChanged?.Invoke(this, GetCurrentMusic());
+            save();
         }
     }
 
@@ -101,6 +104,7 @@ public class Playlist {
         set {
             info.Mode = value;
             OnPlayModeChanged?.Invoke(this, info.Mode);
+            save();
         }
     }
 
@@ -109,8 +113,8 @@ public class Playlist {
         set => info.Musics = value;
     }
 
-    public void toNextMode() {
-        int val = ((int)info.Mode);
+    public void ToNextMode() {
+        int val = (int)info.Mode;
         int len = Enum.GetValues(typeof(PlayMode)).Length;
         if (val == len - 1) {
             val = 0;
@@ -124,9 +128,10 @@ public class Playlist {
 
     private void save() {
         db.updateConfig(CC.CK_PLAYLIST, info);
+        Log.Debug(nameof(save));
     }
 
-    public PlaylistInfo load() {
+    private PlaylistInfo load() {
         string value = db.selectConfig(CC.CK_PLAYLIST);
         if (string.IsNullOrWhiteSpace(value)) {
             return new PlaylistInfo();
@@ -135,7 +140,7 @@ public class Playlist {
         return JsonSerializer.Deserialize<PlaylistInfo>(value)!;
     }
 
-    private void raiseContentChangedEvent() {
+    private void RaiseContentChangedEvent() {
         OnContentChanged?.Invoke(this, info.Musics);
         save();
     }
@@ -143,7 +148,7 @@ public class Playlist {
     public void clear() {
         info.Musics = [];
         Index = -1;
-        raiseContentChangedEvent();
+        RaiseContentChangedEvent();
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reactive;
+using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Media;
@@ -43,15 +44,17 @@ public class PlayBarViewModel : ViewModelBase {
     public bool PlayBarVisible { get; set; }
 
     public PlayBarViewModel(Playlist playlist, Player player) {
-        init();
-
         this.playlist = playlist;
         this.player = player;
 
         PlayBarVisible = this.playlist.isNotEmpty();
         CurrentMusic = this.playlist.GetCurrentMusic();
-        ModeButtonData = (Geometry?)App.Current.FindResource("Playbar" + this.playlist.Mode);
-        this.playlist.OnContentChanged += (sender, list) => { PlayBarVisible = list.Count != 0; };
+        ModeButtonData = App.FindGeometryResource("Playbar" + this.playlist.Mode);
+
+        this.playlist.OnContentChanged += (sender, list) => {
+            PlayBarVisible = list.Count != 0;
+            Log.Debug(nameof(playlist.OnContentChanged));
+        };
 
         this.playlist.OnCurrentMusicChanged += (sender, m) => {
             CurrentMusic = m;
@@ -59,7 +62,7 @@ public class PlayBarViewModel : ViewModelBase {
         };
 
         this.playlist.OnPlayModeChanged += (sender, mode) => {
-            ModeButtonData = (Geometry?)App.Current.FindResource("Playbar" + mode);
+            ModeButtonData = App.FindGeometryResource("Playbar" + mode);
             Log.Debug(nameof(playlist.OnPlayModeChanged));
         };
 
@@ -68,14 +71,15 @@ public class PlayBarViewModel : ViewModelBase {
             Position = pos;
             PositionFormatted = CommonUtils.formatDuration(pos);
         };
-        PlayButtonData = (Geometry?)App.Current.FindResource("PlaybarPlay");
+        PlayButtonData = App.FindGeometryResource("PlaybarPlay")!;
         this.player.OnStateChanged += (sender, state) => {
-            Log.Debug("OnStateChanged");
             if (state == PlayState.Run) {
-                PlayButtonData = (Geometry?)App.Current.FindResource("PlaybarPause");
+                PlayButtonData = App.FindGeometryResource("PlaybarPause");
             } else {
-                PlayButtonData = (Geometry?)App.Current.FindResource("PlaybarPlay");
+                PlayButtonData = App.FindGeometryResource("PlaybarPlay");
             }
+
+            Log.Debug(nameof(player.OnStateChanged));
         };
 
         this.WhenAnyValue(model => model.CurrentMusic)
@@ -98,16 +102,13 @@ public class PlayBarViewModel : ViewModelBase {
     /// only for designer preview
     /// </summary>
     public PlayBarViewModel() {
-        this.init();
         CurrentMusic = CommonUtils.ParseToMusic("D:/CloudMusic/Akie秋绘 - はるのとなり（《摇曳露营\u25b3》第二季ED）（翻自 佐々木恵梨）.mp3");
         // playlist.Mode = PlayMode.Order;
     }
 
-    private void init() {
-    }
 
     public void HandleMode() {
-        playlist.toNextMode();
+        playlist.ToNextMode();
     }
 
     public void HandleLyric() {
