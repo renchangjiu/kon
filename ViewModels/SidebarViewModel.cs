@@ -46,6 +46,13 @@ public class SidebarViewModel : ViewModelBase {
             });
     }
 
+    public SidebarViewModel() {
+    }
+
+    /// <summary>
+    /// only for designer preview
+    /// </summary>
+    ///
     public List<Sheet> Sheets {
         get => sheets;
         set => this.RaiseAndSetIfChanged(ref sheets, value);

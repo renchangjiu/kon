@@ -44,38 +44,58 @@
         </DataTemplate>
     </UserControl.DataTemplates>
 
-
-    <ScrollViewer Name="MyScrollViewer">
-        <StackPanel Margin="10">
-
-            <ListBox Name="FixedListBox"
-                     SelectedIndex="{Binding FixedSelectedIndex}">
-                <cs:SheetListBoxItem Source="/Assets/Icons/sheet_local.png"
-                                     Text="本地音乐" />
-                <cs:SheetListBoxItem Source="/Assets/Icons/sheet_recent.png"
-                                     Text="最近播放" />
-            </ListBox>
-
-            <DockPanel Margin="10 1 10 1">
-                <cs:HoverButton DockPanel.Dock="Right"
-                                Height="24"
-                                Command="{Binding executeOpenCommand}"
-                                Source="/Assets/Icons/sidebar_sheet_add.png"
-                                HoverSource="/Assets/Icons/sidebar_sheet_add_hover.png">
-
-                </cs:HoverButton>
-                <TextBlock Text="创建的歌单"
-                           FontSize="12"
-                           Foreground="{StaticResource ColorGray}"
-                           VerticalAlignment="Center" />
-            </DockPanel>
-
-            <ListBox
-                SelectedItem="{Binding SheetSelectedItem}"
-                ItemsSource="{Binding Sheets}">
-            </ListBox>
-
+    <DockPanel>
+        <StackPanel Orientation="Horizontal"
+                    Height="{StaticResource TitleBarHeight}"
+                    DockPanel.Dock="Top"
+                    Margin="10 0 0 0"
+                    Spacing="0">
+            <Image Source="/Assets/icon.png"
+                   Height="20"
+                   Width="20"
+                   VerticalAlignment="Center"
+                   Margin="5,0,3,0"
+                   Name="WindowIcon" />
+            <TextBlock Text="kon player"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Margin="10,0,0,0"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       IsHitTestVisible="False"/>
         </StackPanel>
-    </ScrollViewer>
+        <ScrollViewer Name="MyScrollViewer">
+            <StackPanel Margin="10">
+                <ListBox Name="FixedListBox"
+                         SelectedIndex="{Binding FixedSelectedIndex}">
+                    <cs:SheetListBoxItem Source="/Assets/Icons/sheet_local.png"
+                                         Text="本地音乐" />
+                    <cs:SheetListBoxItem Source="/Assets/Icons/sheet_recent.png"
+                                         Text="最近播放" />
+                </ListBox>
+
+                <DockPanel Margin="10 1 10 1">
+                    <cs:HoverButton DockPanel.Dock="Right"
+                                    Height="24"
+                                    Command="{Binding executeOpenCommand}"
+                                    Source="/Assets/Icons/sidebar_sheet_add.png"
+                                    HoverSource="/Assets/Icons/sidebar_sheet_add_hover.png">
+
+                    </cs:HoverButton>
+                    <TextBlock Text="创建的歌单"
+                               FontSize="12"
+                               Foreground="{StaticResource ColorGray}"
+                               VerticalAlignment="Center" />
+                </DockPanel>
+
+                <ListBox
+                    SelectedItem="{Binding SheetSelectedItem}"
+                    ItemsSource="{Binding Sheets}">
+                </ListBox>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+
 
 </UserControl>

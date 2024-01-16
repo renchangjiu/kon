@@ -6,19 +6,27 @@
              xmlns:ctrl="using:kon.Controls"
              x:DataType="vm:PlayBarViewModel"
              mc:Ignorable="d"
-             Height="73" d:DesignWidth="800"
+             Height="82" d:DesignWidth="800"
              x:Class="kon.Views.PlayBarView">
 
     <Design.DataContext>
         <vm:PlayBarViewModel />
     </Design.DataContext>
+
     <UserControl.Resources>
         <x:Double x:Key="ButtonSize">19</x:Double>
         <x:Double x:Key="PlayButtonSize">42</x:Double>
     </UserControl.Resources>
+
     <Border
         BorderBrush="{StaticResource ColorDivideLine}"
         BorderThickness="0 1 0 0">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+                <GradientStop Offset="0" Color="#fafbfb" />
+                <GradientStop Offset="1" Color="#fdfdfe" />
+            </LinearGradientBrush>
+        </Border.Background>
         <Grid
             ColumnDefinitions="2* 6* 2*">
             <Grid Grid.Column="0"
@@ -28,14 +36,22 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.RowSpan="2"
+                    Cursor="Hand"
+                    BorderThickness="0"
+                    Margin="10 0 0 0"
                     Command="{Binding HandleToPlayPage}">
                     <Border
-                        Margin="12"
-                        CornerRadius="8"
+                        Background="Black"
+                        CornerRadius="50"
                         ClipToBounds="True">
-                        <Image
-                            Width="48" Height="48"
-                            Source="{Binding CurrentMusic.Path, Converter={StaticResource CoverConverter}}" />
+                        <Border
+                            Margin="10"
+                            CornerRadius="48"
+                            ClipToBounds="True">
+                            <Image
+                                Width="48" Height="48" Stretch="UniformToFill"
+                                Source="{Binding CurrentMusic.Path, Converter={StaticResource CoverConverter}}" />
+                        </Border>
                     </Border>
                 </Button>
                 <TextBlock Grid.Row="0"
@@ -96,7 +112,7 @@
 
                     <Button
                         Command="{Binding HandleClearPlaylist}"
-                        Content="清空播放列表"/>
+                        Content="清空播放列表" />
                 </StackPanel>
 
                 <DockPanel Margin="0 4 0 0" Width="420">

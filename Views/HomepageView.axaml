@@ -20,7 +20,15 @@
         </views:PlayBarView>
 
         <Grid
-            RowDefinitions="60 *" Background="White">
+            RowDefinitions="60 *">
+            <Grid.Background>
+                <!-- TODO -->
+                <!-- 基于当前播放的歌曲的图片改变背景色 -->
+                <LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+                    <GradientStop Offset="0" Color="#8ad7f1" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" MinWidth="200" />
                 <ColumnDefinition Width="Auto" />

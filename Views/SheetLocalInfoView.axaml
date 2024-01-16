@@ -44,7 +44,8 @@
                       CanUserSortColumns="True"
                       DoubleTapped="OnGridDoubleTapped"
                       IsReadOnly="True"
-                      RowBackground="#fafafa">
+                      RowBackground="Transparent"
+                      Background="Transparent">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Binding="{Binding Index, Converter={StaticResource MusicOrderConverter}, Mode=OneWay}"

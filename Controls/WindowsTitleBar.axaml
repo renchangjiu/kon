@@ -6,30 +6,10 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="60"
              x:Class="kon.Controls.WindowsTitleBar">
     <DockPanel Name="TitleBar"
-               Height="60"
+               Height="{StaticResource TitleBarHeight}"
                PointerPressed="OnPointerPressed"
                DoubleTapped="OnDoubleTapped"
-               Background="{DynamicResource ColorTheme}">
-        <StackPanel Orientation="Horizontal"
-                    DockPanel.Dock="Left"
-                    Spacing="0">
-            <Image Source="/Assets/icon.png"
-                   Height="20"
-                   Width="20"
-                   VerticalAlignment="Center"
-                   Margin="5,0,3,0"
-                   Name="WindowIcon">
-            </Image>
-            <TextBlock Text="kon player"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Margin="10,0,0,0"
-                       Foreground="White"
-                       VerticalAlignment="Center"
-                       IsHitTestVisible="False"
-                       Name="SystemChromeTitle">
-            </TextBlock>
-        </StackPanel>
+               Background="Transparent">
         <StackPanel HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Orientation="Horizontal"
@@ -50,8 +30,6 @@
                            VerticalAlignment="Center"
                            Height="15"
                            Margin="0 0 30 0" />
-
-
         </StackPanel>
     </DockPanel>
 
