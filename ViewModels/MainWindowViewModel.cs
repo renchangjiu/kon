@@ -7,6 +7,9 @@ public class MainWindowViewModel : ViewModelBase {
     [Reactive]
     public ViewModelBase CurrentPage { get; set; }
 
+    [Reactive]
+    public bool IsTransitionReversed { get; set; }
+
 
     private readonly HomepageViewModel homepageViewModel;
 
@@ -17,18 +20,17 @@ public class MainWindowViewModel : ViewModelBase {
         this.homepageViewModel = homepageViewModel;
         this.playPageViewModel = playPageViewModel;
 
-        CurrentPage = this.homepageViewModel;
-
+        SwitchToHomepage();
     }
 
     public void SwitchToPlayPage() {
         CurrentPage = playPageViewModel;
+        IsTransitionReversed = true;
     }
 
     public void SwitchToHomepage() {
         CurrentPage = homepageViewModel;
+        IsTransitionReversed = false;
     }
-
-
 
 }
