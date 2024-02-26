@@ -25,7 +25,7 @@
                 <!-- TODO -->
                 <!-- 基于当前播放的歌曲的图片改变背景色 -->
                 <LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
-                    <GradientStop Offset="0" Color="#8ad7f1" />
+                    <GradientStop Offset="0" Color="#dcf0f6" />
                     <GradientStop Offset="1" Color="Transparent" />
                 </LinearGradientBrush>
             </Grid.Background>

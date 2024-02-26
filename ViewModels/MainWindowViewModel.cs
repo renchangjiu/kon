@@ -25,12 +25,12 @@ public class MainWindowViewModel : ViewModelBase {
 
     public void SwitchToPlayPage() {
         CurrentPage = playPageViewModel;
-        IsTransitionReversed = true;
+        IsTransitionReversed = false;
     }
 
     public void SwitchToHomepage() {
         CurrentPage = homepageViewModel;
-        IsTransitionReversed = false;
+        IsTransitionReversed = true;
     }
 
 }

@@ -56,11 +56,11 @@
                    VerticalAlignment="Center"
                    Margin="5,0,3,0"
                    Name="WindowIcon" />
-            <TextBlock Text="kon player"
+            <TextBlock Text="KON"
                        FontSize="20"
                        FontWeight="Bold"
                        Margin="10,0,0,0"
-                       Foreground="White"
+                       Foreground="#283248"
                        VerticalAlignment="Center"
                        IsHitTestVisible="False"/>
         </StackPanel>

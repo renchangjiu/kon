@@ -18,12 +18,11 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <!-- TODO: 等待官方加入反转方向的属性
-    https://github.com/AvaloniaUI/Avalonia/pull/13003
-     -->
-    <TransitioningContentControl Content="{Binding CurrentPage}">
+    <TransitioningContentControl
+        Content="{Binding CurrentPage}"
+        IsTransitionReversed="{Binding IsTransitionReversed}">
         <TransitioningContentControl.PageTransition>
-            <PageSlide Orientation="Vertical"  Duration="0:00:00.300" />
+            <PageSlide Orientation="Vertical" Duration="0:00:00.300" />
         </TransitioningContentControl.PageTransition>
     </TransitioningContentControl>
 
